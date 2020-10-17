@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MAP from './components/MAP'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 function App() {
   return (
@@ -18,7 +20,10 @@ function App() {
         >
           Learn React
         </a>
+        <h3>LEAFLET MAP</h3>
+        <ArrowDownwardIcon/>
       </header>
+      <MAP/>
     </div>
   );
 }
