@@ -19,15 +19,14 @@ Repozytorium do zarządzania aplikacją przeglądarkową.
 ## Harmonogram prac
 
 ## Styl kodowania
+- https://github.com/pietraszekl/javascript/tree/master/react JS
+- http://getbem.com/introduction/ CSS
 
 ## Dokumentacja techniczna
 
 ## Dokumentacja użytkownika
 
 ## Przydatne linki
-Wytyczne tworzenia kodu:
-- https://github.com/pietraszekl/javascript/tree/master/react
-- http://getbem.com/introduction/
 
 
 
