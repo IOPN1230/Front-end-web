@@ -3,10 +3,10 @@
 Repozytorium do zarządzania aplikacją przeglądarkową.
 
 ## Podział na grupy
-[Proponowany podział na moduły](https://drive.google.com/drive/folders/1hJk0j9teNxnVLHJ8YsPfaSLLDiJaZ2qx?usp=sharing)
+ - [Proponowany podział na moduły](https://drive.google.com/drive/folders/1hJk0j9teNxnVLHJ8YsPfaSLLDiJaZ2qx?usp=sharing)
 
 ## Prototyp
-[Prototyp z przejściami i komentarzem.](https://www.figma.com/proto/bWQcCu0oyINNYOpwzYLUJk/baUHInia?node-id=1%3A2&scaling=min-zoom)
+ - [Prototyp z przejściami i komentarzem.](https://www.figma.com/proto/bWQcCu0oyINNYOpwzYLUJk/baUHInia?node-id=1%3A2&scaling=min-zoom)
 ## Dokumentacja UML
  - [Schemat przypadków użycia diagram](https://drive.google.com/file/d/1c__wzrMUO9CvHcKrnbMK5Bi-dVW4CVoF/view?usp=sharing)
  - [Schemat przypadków uzycia opis](https://tulodz-my.sharepoint.com/:w:/g/personal/203397_edu_p_lodz_pl/ERo7dqVIcopMvTmSuVMmC-0BmoE1jLfLnOCESvNYN7Dv-g?e=aGdwlG)
