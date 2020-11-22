@@ -32,6 +32,7 @@ Repozytorium do zarządzania aplikacją przeglądarkową.
 ## Dokumentacja użytkownika
 
 ## Przydatne linki
+- [Prezentacja modułu logowania](https://tulodz-my.sharepoint.com/:b:/g/personal/224384_edu_p_lodz_pl/EUDMAxZqo1RDrxcH5jxTQaABIq0NjnNEZ08n_gkGOqP0XQ?e=Gl0WVQ)
 
 
 
