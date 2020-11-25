@@ -22,6 +22,7 @@ Repozytorium do zarządzania aplikacją przeglądarkową.
  - ![#FFFFFF](https://via.placeholder.com/15/FFFFFF/000000?text=+) `#FFFFFF`
 
 ## Harmonogram prac
+- [Harmonogram prac](https://tulodz-my.sharepoint.com/:x:/g/personal/203397_edu_p_lodz_pl/EVH4pdjqYZtJjc2Gu8fg9tYB35wwDsOkFj1J4kTV7eaSmQ?e=9Vr4dM)
 
 ## Styl kodowania
 - https://github.com/pietraszekl/javascript/tree/master/react JS
