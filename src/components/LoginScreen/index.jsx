@@ -2,11 +2,16 @@ import React from 'react';
 import {Box,Button} from '@material-ui/core';
 import logo from './images/logo192.png'
 import styles from './styles.module.css';
+import { AuthorizationSystem } from '../../service/AuthorizationSystem'
 
 export default function LoginScreen() {
 
     const handleCitizenAuthentication = () => {
-        alert("I'm empty now, but I'm growing");
+        AuthorizationSystem.doSigningIn().then((value)=>{
+            console.log({"logged_in":value})
+            alert("logged_in: "+value+" TODO Redirect to any other page.")
+            // TODO Redirect to any other page
+        })
     }
 
     const handleOfficialAuthentication = () => {
