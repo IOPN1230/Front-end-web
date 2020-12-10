@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MAP from './components/MAP'
+import MAP from './components/MAP';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import LoginScreen from './components/LoginScreen';
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <h3>LEAFLET MAP</h3>
         <ArrowDownwardIcon/>
       </header>
+      <LoginScreen/>
       <MAP/>
     </div>
   );
