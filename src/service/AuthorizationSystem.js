@@ -1,23 +1,25 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { firebaseConfig } from '../firebase/config'
+import { initializeFirebase } from '../firebase/firebase';
 
-if(!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig)
-}
+initializeFirebase();
+
 class _AuthorizationSystem {
     
     constructor() {
+        this.currentUser = null;
         this.auth = firebase.auth()
         this.auth.useDeviceLanguage()
         this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
     }
+
     doSigningOut = () => this.auth.signOut()
         .then(()=>{
             return true
         },()=>{
             return false
-        })
+        });
+
     doSigningIn = () => this.auth.signInWithPopup(this.googleAuthProvider)
         .then((userCredential) => {
             if(userCredential.user == null) {
@@ -27,7 +29,7 @@ class _AuthorizationSystem {
         },(error) => {
             console.error(error)
             return false
-        })
+        });
 }
 
 export const AuthorizationSystem = new _AuthorizationSystem();

@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "account_type": {
+      ".read": true,
+      ".write": false
+    }
+  }
+}

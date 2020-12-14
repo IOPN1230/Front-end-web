@@ -1,17 +1,32 @@
-import React from 'react';
+import React, {useEffect, useRef } from 'react';
 import {Box,Button} from '@material-ui/core';
 import logo from './images/logo192.png'
 import styles from './styles.module.css';
 import { AuthorizationSystem } from '../../service/AuthorizationSystem'
+import { User } from '../../service/User'
+
 
 export default function LoginScreen() {
 
-    const handleCitizenAuthentication = () => {
-        AuthorizationSystem.doSigningIn().then((value)=>{
-            console.log({"logged_in":value})
-            alert("logged_in: "+value+" TODO Redirect to any other page.")
+    const onUserChangedSubscription = useRef(null);
+    useEffect(()=>{
+        onUserChangedSubscription.current = User.onUserChanged.subscribe((user)=>{
+            if(user == null) {
+                return;
+            }
+            console.log(user)
+            alert("logged_in: "+user+" TODO Redirect to any other page.")
             // TODO Redirect to any other page
+
+            if(onUserChangedSubscription.current != null) {
+                onUserChangedSubscription.current.unsubscribe()
+                onUserChangedSubscription.current = null
+            }
         })
+    })
+
+    const handleCitizenAuthentication = () => {
+        AuthorizationSystem.doSigningIn()
     }
 
     const handleOfficialAuthentication = () => {
