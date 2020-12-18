@@ -17,6 +17,7 @@ p {
 }
 
 .back {
+  color: #000000;
   height: 45px;
   margin-top: 10%;
   margin-bottom: 20%;
@@ -24,12 +25,13 @@ p {
 
 .text_field {
   background-color: white;
-  background-position: center;
+  position: absolute;
   margin-top: -5%;
   margin-bottom: 5%;
   height: 10hv;
   width: 90%;
   margin-left: 5%;
+  left: 5%;
 }
 
 /* sam pasek boczny*/
@@ -60,7 +62,7 @@ p {
   color: #000000;
   font-size: 12px;
   margin-left: -35px;
-  margin-top: -35px;
+  margin-top: -50px;
   max-width: 140px;
   min-width: 140px;
   max-height: 80px;
@@ -69,4 +71,10 @@ p {
   border-color: black;
   border-width: 3px;
   border-style: double;
+  z-index: 10;  /* pokazuj na wieszchu, dziala tylko gdy position: absolute/ relative/ fixed */
+}
+
+.icon{
+  color: #000000;
+  transform: scale(2.8);
 }

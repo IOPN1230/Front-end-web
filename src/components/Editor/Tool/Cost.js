@@ -6,7 +6,7 @@ function Cost() {
     <div>
       <p>Koszt:</p>
       <TextField
-        class="text_field"
+        className="text_field"
         id="outlined-basic"
         defaultValue="0.0"
         InputProps={{

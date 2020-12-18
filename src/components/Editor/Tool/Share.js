@@ -9,13 +9,13 @@ function Share() {
         <div>
             <button
                 type="button"
-                class="btn btn-outline-dark  btn-lg"
+                className="btn btn-outline-dark btn-lg"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
             >
                 {isHover && showDesc('Udostępnij mapę dla użytkownika')}
                 <SaveOutlinedIcon
-                    class='icon'
+                    className='icon' 
                 />
             </button>
         </div>

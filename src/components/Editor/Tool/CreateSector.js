@@ -10,13 +10,13 @@ function CreateSector() {
         <div>
             <button
                 type="button"
-                class="btn btn-outline-dark  btn-lg"
+                className="btn btn-outline-dark  btn-lg"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
             >
                 {isHover && showDesc('Utwórz sektor. Zaznaczaj kolejne punkty. Ostatni punkt postaw wtam gdzie pierwszy')}
                 <EditOutlinedIcon
-                    class='icon'
+                    className='icon'
                 />
             </button>
         </div>

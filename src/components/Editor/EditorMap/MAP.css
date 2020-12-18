@@ -1,6 +1,8 @@
 #mapContainer {
-  width: 100%;
+  width: calc(100% - 150px);
+  /* height: calc(100vh - 20vh); */
   height: 100vh;
   position: fixed;
   left: 150px;
+  
 }

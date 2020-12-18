@@ -11,7 +11,7 @@ function OfficialTool() {
             <Back />
             <CreateSector />
             <EditSector />
-            <Share />
+            <Share /> 
         </div>
     )
 }

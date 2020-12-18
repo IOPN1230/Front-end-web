@@ -9,13 +9,13 @@ function Delete() {
         <div>
             <button
                 type="button"
-                class="btn btn-outline-dark btn-lg"
+                className="btn btn-outline-dark btn-lg"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
             >
                 {isHover && showDesc('Usuń zaznaczony obiekt')}
                 <ClearOutlinedIcon
-                    class='icon'
+                    className='icon'
                 />
             </button>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css'
-import useToolBar from '../ToolBar/ToolBar';
+import useToolBar from '../ToolBar/UserType';
 import HabitantTool from './HabitantTool'
 import BrowserTool from './BrowserTool'
 import OfficialTool from './OfficialTool'

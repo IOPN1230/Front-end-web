@@ -5,7 +5,8 @@ function Back() {
         <div>
             <button
                 type="button"
-                class="btn btn-outline-dark btn-lg back">
+                className="btn btn-outline-dark btn-lg back"
+                onClick={() => console.log('Wciśnięto "Wróć"')}>
                 Wróć
         </button>
         </div>
