@@ -27,7 +27,6 @@ class NavBar extends Component {
     return (
         <>
         <IconContext.Provider value={{color: 'white'}}>
-            
             <nav className='nav-menu'>
                 <ul className='nav-menu-items' >
                     {Data.map((item, index)=> {

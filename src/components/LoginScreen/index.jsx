@@ -2,11 +2,10 @@ import React, {useEffect, useRef } from 'react';
 import {Box,Button} from '@material-ui/core';
 import logo from './images/logo192.png'
 import styles from './styles.module.css';
-import { AuthorizationSystem } from '../../service/AuthorizationSystem'
+//import { AuthorizationSystem } from '../../service/AuthorizationSystem'
 import { User } from '../../service/User'
 
-
-export default function LoginScreen() {
+export default function LoginScreen(props) {
 
     const onUserChangedSubscription = useRef(null);
     useEffect(()=>{
@@ -15,7 +14,7 @@ export default function LoginScreen() {
                 return;
             }
             console.log(user)
-            alert("logged_in: "+user+" TODO Redirect to any other page.")
+            //alert("logged_in: "+user+" TODO Redirect to any other page.")
             // TODO Redirect to any other page
 
             if(onUserChangedSubscription.current != null) {
@@ -26,11 +25,13 @@ export default function LoginScreen() {
     })
 
     const handleCitizenAuthentication = () => {
-        AuthorizationSystem.doSigningIn()
+        //AuthorizationSystem.doSigningIn()
+        props.setAuthenticatedUser('citizen')
     }
 
     const handleOfficialAuthentication = () => {
-        alert("I'm empty now officialy, but I'm growing officialy :)");
+        //alert("I'm empty now officialy, but I'm growing officialy :)")
+        props.setAuthenticatedUser('official')
     }
 
     return (

@@ -1,14 +1,15 @@
 import React from 'react'
-import Tool from './Tool/Tool';
+import ToolBar from './ToolBar/ToolBar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import MAP from './EditorMap/MAP';
 
-function DisplayEditor() {
+function DisplayEditor(props) {
+
   return (
     <>
       <Router>
         <MAP />
-        <Tool />
+        <ToolBar id={props.id}/>
       </Router>
       <footer />
     </>

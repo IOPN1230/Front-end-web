@@ -1,13 +1,13 @@
 import React from 'react'
 import './styles/MAP.css'
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 
 function MAP() {
 
     return (
         <div id='mapContainer'>
-            <MapContainer
+            <Map
                 center={[51.778285, 19.449863]} 
                 zoom={12} 
                 style={{ width: '100%', height: '100%'}}>
@@ -15,7 +15,7 @@ function MAP() {
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                />
-            </MapContainer>
+            </Map>
         </div>
     )
 }

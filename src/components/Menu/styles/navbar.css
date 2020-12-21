@@ -14,7 +14,7 @@
 .nav-text {
     text-decoration: none;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     list-style: none;
     width: 150%;
@@ -44,6 +44,7 @@
     text-decoration: none;
     transition-duration: 0.4s;
 }
+
 span{
     margin-left: 8%;
 }

@@ -1,33 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 import './App.css';
-import MAP from './components/MAP';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import DisplayEditor from './components/Editor/DisplayEditor';
 import LoginScreen from './components/LoginScreen';
-
+import DisplayMenu from './components/Menu/DisplayMenu';
 
 function App() {
+  const [authenticatedUser, setAuthenticatedUser] = useState(null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>
-          Inżynieria Oprogramowania 
-        </h1>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <h3>LEAFLET MAP</h3>
-        <ArrowDownwardIcon/>
-      </header>
-      <LoginScreen/>
-      <MAP/>
-    </div>
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              {authenticatedUser? null : <LoginScreen setAuthenticatedUser={setAuthenticatedUser}/>}
+              {authenticatedUser==='citizen'
+                ? <DisplayMenu/> : null
+              }
+              {authenticatedUser==='official'
+                ? <DisplayMenu/> : null
+              }
+            </Route>
+            <Route path="/edytor">
+              <DisplayEditor/>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
   );
 }
 

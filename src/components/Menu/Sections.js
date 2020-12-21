@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 //import { Map, GoogleApiWrapper } from 'google-maps-react';
 import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
-import {MapContainer, TileLayer, Marker} from 'react-leaflet';
+import {Map, TileLayer, Marker} from 'react-leaflet';
 import L from 'leaflet';
 import './styles/menu.css'
 
@@ -59,7 +59,7 @@ class  Sections extends Component {
                 <Card.Body>
                     <Row style={{height:'100%'}}>
                         <Col xs='3'>
-                            <MapContainer
+                            <Map
                             
                                 center={data.position} 
                                 zoom={12} 
@@ -69,7 +69,7 @@ class  Sections extends Component {
                                      attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                 <Marker position={data.position} icon={image}></Marker>
-                            </MapContainer>
+                            </Map>
                         </Col>
                         <Col xs='3'>
                             <Card.Title className='mb-6' style={{fontSize: 26}}>{data.name}</Card.Title>

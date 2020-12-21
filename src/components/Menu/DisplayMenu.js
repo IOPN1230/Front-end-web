@@ -21,7 +21,8 @@ import YourMaps from './YourMaps';
 
 function DisplayMenu() {
     return (
-        <Container fluid>
+      <Container fluid>
+        <div className="menu">
         <Router>
                <Navbar isUrzednik={true}/>
           <Switch >
@@ -33,6 +34,7 @@ function DisplayMenu() {
               <Route path='/YourMaps' component={YourMaps}/>
           </Switch>
         </Router>  
+        </div>
       </Container>
     )
 }

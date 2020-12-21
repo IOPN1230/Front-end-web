@@ -1,6 +1,6 @@
 import React from 'react'
 import './MAP.css'
-import { Circle, MapContainer, TileLayer } from 'react-leaflet'
+import { Circle, Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 
 
@@ -12,7 +12,7 @@ function MAP() {
 
     return (
         <div id='mapContainer'>
-            <MapContainer id='map'
+            <Map id='map'
                 center={[51.778285, 19.449863]}
                 zoom={12}
                 style={{ width: '100%', height: '100%' }}
@@ -44,7 +44,7 @@ function MAP() {
                         click: (e) => Coordinates(e)
                     }} />
 
-            </MapContainer>
+            </Map>
         </div>
 
 

@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
-import {MapContainer, TileLayer} from 'react-leaflet';
+import {Map, TileLayer} from 'react-leaflet';
 import './styles/menu.css'
 
 class usersMaps extends Component {
@@ -51,7 +51,7 @@ class usersMaps extends Component {
                 <Card.Body>
                     <Row style={{height:'100%'}}>
                         <Col xs='3'>
-                            <MapContainer
+                            <Map
                             
                                 center={data.position} 
                                 zoom={12} 
@@ -60,7 +60,7 @@ class usersMaps extends Component {
                                 <TileLayer
                                      attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                            </MapContainer>
+                            </Map>
                         </Col>
                         <Col xs='3'>
                             <Card.Title className='mb-6' style={{fontSize: 26}}>{data.name}</Card.Title>
@@ -72,7 +72,7 @@ class usersMaps extends Component {
                         </Col>
                         <Col>
                           <ButtonToolbar>
-                                <Button variant='primary'> Edytuj </Button>      
+                                <Button variant='primary' href="edytor"> Edytuj </Button>     
                          </ButtonToolbar>
                         </Col>                
                     </Row>   
