@@ -2,7 +2,7 @@ import React, {useEffect, useRef } from 'react';
 import {Box,Button} from '@material-ui/core';
 import logo from './images/logo192.png'
 import styles from './styles.module.css';
-//import { AuthorizationSystem } from '../../service/AuthorizationSystem'
+import { AuthorizationSystem } from '../../service/AuthorizationSystem'
 import { User } from '../../service/User'
 
 export default function LoginScreen(props) {
@@ -25,7 +25,7 @@ export default function LoginScreen(props) {
     })
 
     const handleCitizenAuthentication = () => {
-        //AuthorizationSystem.doSigningIn()
+        AuthorizationSystem.doSigningIn()
         props.setAuthenticatedUser('citizen')
     }
 
