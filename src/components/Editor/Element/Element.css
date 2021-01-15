@@ -1,0 +1,58 @@
+.scrollmenu {
+    background-color: rgb(189, 186, 186);
+    overflow:auto;
+    white-space: nowrap;
+    position: relative;
+    right: -150px;
+    bottom: -80vh;
+    height: 15vh;
+  }
+  
+  .scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  }
+  
+ .scrollmenu a:hover {
+    background-color: #777;
+  }
+
+  .btn-primary {
+    background-color: white;
+    height: 70px;
+    width: 70px;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    float: left;
+    
+
+    
+  }
+
+  .Desc {
+    background-color: #e9e9e9c7;
+    position: fixed;
+    justify-content:baseline;
+    text-align: right;
+    color: #000000;
+    font-size: 14px;
+    margin-left: -35px;
+    margin-top: -50px;
+
+    border-radius: 10px;
+    border-color: black;
+    border-width: 3px;
+    border-style: double;
+    z-index: 10;  /* pokazuj na wieszchu, dziala tylko gdy position: absolute/ relative/ fixed */
+  }
+
+  #close-image img {
+    display: block;
+    height: 130px;  
+    width: 100px;
+}
