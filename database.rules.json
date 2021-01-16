@@ -3,6 +3,10 @@
     "account_type": {
       ".read": true,
       ".write": false
+    },
+    "object": {
+      ".read": true,
+      ".write": true
     }
   }
 }
