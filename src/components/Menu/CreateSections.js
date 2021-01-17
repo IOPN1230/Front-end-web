@@ -2,7 +2,7 @@
     Klasa utwórz sektor - w budowie
  */
 import React,{Component} from 'react'
-import MAP from './MAP'
+import MAP from './DrawMap'
 
 class CreateSections extends Component {
     render(){

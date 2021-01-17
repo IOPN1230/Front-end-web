@@ -6,7 +6,7 @@ import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
 //import {data} from './data/editObjectsData';
 import ImageMapper from 'react-image-mapper';
 import ObjectEdit from './ObjectEdit'
-
+import JSON from './data/editObjectsData.json'
 
 class ObjectItem extends Component {
     constructor(props ){
@@ -17,33 +17,7 @@ class ObjectItem extends Component {
         this.state = {
             showModal : false,
             requiredItem : 0,
-            data: [{
-                name: "Ławka",
-                date: "24.09.2017",
-                author: "Janek",
-                price: 150,
-                heatSign: 1.02,
-                influenceRadius: 7,
-                image:"https://atlas-content-cdn.pixelsquid.com/stock-images/park-bench-G9Y7qP7-600.jpg"
-            },
-            {
-                name: "Drzewo",
-                date: "23.09.2019",
-                author: "Janek",
-                price: 180,
-                heatSign: 1.02,
-                influenceRadius : 79,
-                image: "https://i.pinimg.com/736x/e3/d4/b1/e3d4b11d382ab78f907e6b569a4e0c3a.jpg"
-            },
-            {
-                name: "Lampa",
-                date: "02.09.2017",
-                author: "Janek",
-                price: 250,
-                heatSign: 1.32,
-                influenceRadius: 43,
-                image: "https://www.freepnglogos.com/uploads/street-light-png/electrical-street-light-pole-street-lighting-pole-20.png"
-            }]
+          
         }
     }
 
@@ -57,7 +31,8 @@ class ObjectItem extends Component {
 
     savemodal(item){
         const requiredItem = this.state.requiredItem;
-        let temp = this.state.data;
+        //let temp = this.state.data;
+        let temp = JSON;
         temp[requiredItem] = item;
         this.setState({ data : temp });
     }
@@ -65,7 +40,7 @@ class ObjectItem extends Component {
     render(){
        let showModalClose = () => this.setState({showModal : false});
       
-        const newdata = this.state.data.map( (data, index) =>{
+        const newdata = JSON.map( (data, index) =>{
         return(
             <Card style={{ width: '65rem' }} key={index} className="p-3" text="dark"> 
                 <Card.Body>
@@ -95,7 +70,8 @@ class ObjectItem extends Component {
        
     })
     const requiredItem = this.state.requiredItem;
-    let modalData = this.state.data[requiredItem]; 
+    //let modalData = this.state.data[requiredItem]; 
+    let modalData = JSON[requiredItem];
     return (
         <div className='editObjects'>
             <h3> Przeglądaj Obiekty</h3>

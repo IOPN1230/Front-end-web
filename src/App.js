@@ -19,10 +19,10 @@ function App() {
             <Route exact path="/">
               {authenticatedUser? null : <LoginScreen setAuthenticatedUser={setAuthenticatedUser}/>}
               {authenticatedUser==='citizen'
-                ? <DisplayMenu/> : null
+                ? <DisplayMenu isUrzednik={false}/> : null
               }
               {authenticatedUser==='official'
-                ? <DisplayMenu/> : null
+                ? <DisplayMenu isUrzednik={true}/> : null
               }
             </Route>
             <Route path="/edytor">

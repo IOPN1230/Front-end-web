@@ -1,12 +1,6 @@
 /*
     Klasa wyświetlająca wszystkie elementy komponentu menu
     
-    WYMAGANA INSTALACJA: 
-      - BOOTSTRAP
-      - REACT-ROUTER-DOM
-      - IMAGE-MAPPER
-      - REACT-LEAFLET
-      
  */
 import React from 'react'
 import './styles/menu.css';
@@ -18,13 +12,25 @@ import Navbar from './Navbar';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import CreateSections from './CreateSections';
 import YourMaps from './YourMaps';
+import { Component } from 'react';
 
-function DisplayMenu() {
+
+class DisplayMenu extends Component{
+  
+  constructor(props){
+    super(props);
+    this.state= {
+        isUrzednik : props.isUrzednik
+     }
+    }
+    render(){
+      
     return (
+      
       <Container fluid>
         <div className="menu">
         <Router>
-               <Navbar isUrzednik={true}/>
+               <Navbar isUrzednik={this.props.isUrzednik}/>
           <Switch >
               <Route path='/' exact component={CreateSections}/>
               <Route path='/CreateSections' component={CreateSections}/>
@@ -37,6 +43,7 @@ function DisplayMenu() {
         </div>
       </Container>
     )
+    }
 }
 
 export default DisplayMenu
