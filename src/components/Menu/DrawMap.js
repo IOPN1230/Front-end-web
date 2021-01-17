@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw';
 import 'leaflet-draw/dist/leaflet.draw.css'
 import {EditControl} from 'react-leaflet-draw';
-import { circle } from 'leaflet';
+//import { circle } from 'leaflet';
 
 const MAP = () => {
     const [mapLayers, setMapLayers] = useState([]);

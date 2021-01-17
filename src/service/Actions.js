@@ -53,6 +53,13 @@ class DataActions {
             return null
         })
     }
+    getList() {
+        return this.dbRefElements.get().then((snapshot)=>{
+            return snapshot.val()
+        },(reason)=>{
+            return null
+        })
+    }
 }
 
 const pathObject = "object"

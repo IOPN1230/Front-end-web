@@ -6,7 +6,8 @@ import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
 //import {data} from './data/editObjectsData';
 import ImageMapper from 'react-image-mapper';
 import ObjectEdit from './ObjectEdit'
-import JSON from './data/editObjectsData.json'
+import { ActionsObject } from './../../service/Actions'
+import JSONX from './data/editObjectsData.json'
 
 class ObjectItem extends Component {
     constructor(props ){
@@ -17,8 +18,16 @@ class ObjectItem extends Component {
         this.state = {
             showModal : false,
             requiredItem : 0,
-          
+            objects: []
         }
+        ActionsObject.getList().then((list)=>{
+            let objects = []
+            for (let [key, value] of Object.entries(list)) {
+                console.log(JSON.stringify(value))
+                objects.push(value)
+            }
+            this.setState({objects : objects});
+        });
     }
 
     replaceModal(index){
@@ -39,8 +48,8 @@ class ObjectItem extends Component {
 
     render(){
        let showModalClose = () => this.setState({showModal : false});
-      
-        const newdata = JSON.map( (data, index) =>{
+        
+        const newdata = this.state.objects.map( (data, index) =>{
         return(
             <Card style={{ width: '65rem' }} key={index} className="p-3" text="dark"> 
                 <Card.Body>
@@ -71,7 +80,7 @@ class ObjectItem extends Component {
     })
     const requiredItem = this.state.requiredItem;
     //let modalData = this.state.data[requiredItem]; 
-    let modalData = JSON[requiredItem];
+    let modalData = JSONX[requiredItem];
     return (
         <div className='editObjects'>
             <h3> Przeglądaj Obiekty</h3>
