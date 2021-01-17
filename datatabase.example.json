@@ -1,5 +1,21 @@
 {
   "account_type" : {
-    "bbsNc0DMXqSGi4SPsVJacWT1bBx2":"official"
+    "bbsNc0DMXqSGi4SPsVJacWT1bBx2" : "official"
+  },
+  "data_object" : {
+    "el" : {
+      "-MREtIJ55qro2HB2vB8j" : {
+        "author" : "bbsNc0DMXqSGi4SPsVJacWT1bBx2",
+        "date" : "24.09.2017",
+        "heatSign" : 1.02,
+        "image" : "https://atlas-content-cdn.pixelsquid.com/stock-images/park-bench-G9Y7qP7-600.jpg",
+        "influenceRadius" : 7,
+        "name" : "Ławka",
+        "price" : 150
+      }
+    },
+    "key" : {
+      "-MREtIJ55qro2HB2vB8j" : 1610879416152
+    }
   }
 }

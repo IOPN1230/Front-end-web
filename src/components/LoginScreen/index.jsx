@@ -14,8 +14,9 @@ export default function LoginScreen(props) {
                 return;
             }
             console.log(user)
-            //alert("logged_in: "+user+" TODO Redirect to any other page.")
-            // TODO Redirect to any other page
+
+            let userType = User.getUserData().userType
+            props.setAuthenticatedUser(userType)
 
             if(onUserChangedSubscription.current != null) {
                 onUserChangedSubscription.current.unsubscribe()
@@ -26,12 +27,10 @@ export default function LoginScreen(props) {
 
     const handleCitizenAuthentication = () => {
         AuthorizationSystem.doSigningIn()
-        props.setAuthenticatedUser('citizen')
     }
 
     const handleOfficialAuthentication = () => {
         //alert("I'm empty now officialy, but I'm growing officialy :)")
-        props.setAuthenticatedUser('official')
     }
 
     return (
