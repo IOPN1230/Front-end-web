@@ -1,12 +1,49 @@
 {
   "rules": {
     "account_type": {
-      ".read": true,
+      ".read": "auth != null",
       ".write": false
     },
-    "object": {
-      ".read": true,
-      ".write": true
+    "data_object": {
+      "el":{
+        ".write": "auth != null",
+        "$elKey": {
+          ".indexOn": ["author"],
+          ".read": "(root.child('account_type').child(auth.uid).val() == 'official') || (root.child('data_object').child('el').child($elKey).child('author').val() == auth.uid)",
+          ".write": "root.child('data_object').child('el').child($elKey).child('author').val() == auth.uid"
+        }
+      },
+      "key":{
+        ".write":"auth != null",
+        "$elKey": {
+          ".read": "(root.child('account_type').child(auth.uid).val() == 'official') || (root.child('data_object').child('el').child($elKey).child('author').val() == auth.uid)",
+          ".write": "root.child('data_object').child('el').child($elKey).child('author').val() == auth.uid"
+        }
+      }
+    },
+    "data_map": {
+      ".read":true,
+      ".write":true,
+      "el":{
+        ".read":true,
+        ".write":true
+      },
+      "key":{
+        ".read":true,
+        ".write":true
+      }
+    },
+    "data_section": {
+      ".read":true,
+      ".write":true,
+      "el":{
+        ".read":true,
+        ".write":true
+      },
+      "key":{
+        ".read":true,
+        ".write":true
+      }
     }
   }
 }

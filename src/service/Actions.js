@@ -4,7 +4,7 @@ const getTimestamp = (date) => {
     return Date.UTC(date.getUTCFullYear(),date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
 }
 
-class Actions {
+class DataActions {
 
     constructor(dbRef) {
         this.dbRef = dbRef
@@ -58,6 +58,6 @@ class Actions {
 const pathObject = "object"
 const pathMap = "map"
 const pathSection = "section"
-export const ActionsObject = new Actions(DatabaseConnection.db.ref('/data/'+pathObject+'/'))
-export const ActionsMap = new Actions(DatabaseConnection.db.ref('/data/'+pathMap+'/'))
-export const ActionsSection = new Actions(DatabaseConnection.db.ref('/data/'+pathSection+'/'))
+export const ActionsObject = new DataActions(DatabaseConnection.db.ref('/data_'+pathObject+'/'))
+export const ActionsMap = new DataActions(DatabaseConnection.db.ref('/data_'+pathMap+'/'))
+export const ActionsSection = new DataActions(DatabaseConnection.db.ref('/data_'+pathSection+'/'))
