@@ -11,6 +11,7 @@ class ObjectEdit extends Component {
         super(props);
         this.handleSave = this.handleSave.bind(this);
         this.state = {
+            kij:'',
             name: '',
             author: '',
             heatSign: '',
@@ -22,6 +23,7 @@ class ObjectEdit extends Component {
     }
     componentWillReceiveProps(nextP){
         this.setState({
+            kij: nextP.kij,
             name: nextP.name,
             author: nextP.author,
             heatSign : nextP.heatSign,
@@ -45,7 +47,7 @@ class ObjectEdit extends Component {
     }
     handleSave(){
         const item = this.state;
-        this.props.savemodal(item)
+        this.props.savemodal(item, this.props.kij)
     };
     
     render(){

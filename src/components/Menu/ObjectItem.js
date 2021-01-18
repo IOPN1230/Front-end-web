@@ -3,13 +3,14 @@
  */
 import React,{Component} from 'react';
 import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
-//import {data} from './data/editObjectsData';
 import ImageMapper from 'react-image-mapper';
 import ObjectEdit from './ObjectEdit'
 import { ActionsObject } from './../../service/Actions'
-import JSONX from './data/editObjectsData.json'
+
+
 
 class ObjectItem extends Component {
+    
     constructor(props ){
         super(props);
         
@@ -18,18 +19,31 @@ class ObjectItem extends Component {
         this.state = {
             showModal : false,
             requiredItem : 0,
-            objects: []
+            objects: [
+                {name: '',
+                author: '',
+                heatSign: 0,
+                price : 0,
+                influenceRadius : 0,
+                image: '',
+                date: '',}
+            ],
+            keys:[
+            ]
         }
         ActionsObject.getList().then((list)=>{
             let objects = []
+            let keys =[]
             for (let [key, value] of Object.entries(list)) {
-                console.log(JSON.stringify(value))
                 objects.push(value)
+                keys.push(key)
+               
             }
             this.setState({objects : objects});
+            this.setState({keys:keys})
         });
     }
-
+    
     replaceModal(index){
         this.setState({
             showModal:true,
@@ -38,13 +52,14 @@ class ObjectItem extends Component {
         })
     }
 
-    savemodal(item){
+    savemodal(item, key){
         const requiredItem = this.state.requiredItem;
-        //let temp = this.state.data;
-        let temp = JSON;
-        temp[requiredItem] = item;
+        let temp = this.state.objects;
+        temp[requiredItem] = item; 
         this.setState({ data : temp });
+        ActionsObject.setValue(key , item)
     }
+   
 
     render(){
        let showModalClose = () => this.setState({showModal : false});
@@ -79,8 +94,9 @@ class ObjectItem extends Component {
        
     })
     const requiredItem = this.state.requiredItem;
-    //let modalData = this.state.data[requiredItem]; 
-    let modalData = JSONX[requiredItem];
+    let modalData = this.state.objects[requiredItem];
+    const keyId = this.state.keys[requiredItem];
+    
     return (
         <div className='editObjects'>
             <h3> Przeglądaj Obiekty</h3>
@@ -94,6 +110,7 @@ class ObjectItem extends Component {
                              name={modalData.name} 
                              author={modalData.author} 
                              date={modalData.date} 
+                             kij={keyId}
                              savemodal={this.savemodal}></ObjectEdit>
             </div>
             
