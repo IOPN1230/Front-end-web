@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
 import {Map, TileLayer} from 'react-leaflet';
-import './styles/menu.css'
+//import './styles/menu.css'
 
 class usersMaps extends Component {
     constructor(props ){

@@ -10,9 +10,10 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw';
 import 'leaflet-draw/dist/leaflet.draw.css'
 import {EditControl} from 'react-leaflet-draw';
-import {Button, Modal, Form} from 'react-bootstrap'
+import {Button, Modal, Form, Container} from 'react-bootstrap';
+import './styles/menu.css'
 
-function CreateSections () {
+const  CreateSections = () => {
     
     const [mapLayers, setMapLayers] = useState([]);
     const [show, setShow] = useState(false);
@@ -58,8 +59,10 @@ function CreateSections () {
     }
     const onSubmit = (sectorData) => {
         console.log('onsubmit: ' + JSON.stringify(sectorData))
+        var today = new Date();
+        var date = ('0'+(today.getDate())).slice(-2)+'.'+('0'+(today.getMonth()+1)).slice(-2)+'.'+today.getFullYear();
         if(sectorData.length){
-             ActionsSection.createAndSetValue({"author":User.getUserData().uid,"name": name, "data":sectorData})
+             ActionsSection.createAndSetValue({"author":User.getUserData().uid,"date": date, "name": name, "data":sectorData})
         }else{
             alert('Zaznacz obszar sektora!')
         }
@@ -68,11 +71,12 @@ function CreateSections () {
         handleClose()
     }
     return (
+        <Container fluid>
         <div id='mapContainer'>
             <Map
                 center={[51.778285, 19.449863]} 
                 zoom={12} 
-                style={{ width: '80%', height: '80%'}}
+                style={{ width: '100%', height: '100%'}}
                 ref={useRef()}>
                
                 <FeatureGroup>
@@ -96,7 +100,11 @@ function CreateSections () {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                />
             </Map>
-            <Button variant="primary" type='submit' onClick={handleShow}>Utwórz Sektor</Button>
+            
+           <div className='buttons'> 
+               <Button variant="primary"  type='submit' onClick={handleShow}>Utwórz Sektor</Button>
+            </div>
+            
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Wpisz nazwę sektora</Modal.Title>
@@ -116,8 +124,11 @@ function CreateSections () {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            
+            </div>
+            </Container>
         
-        </div>
+        
     )
     
 }

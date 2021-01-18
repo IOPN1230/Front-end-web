@@ -3,12 +3,11 @@
  */
 import React from 'react';
 import  {Link} from 'react-router-dom';
-import {NavBarData, NavBarUser} from './data/navbarData';
-import './styles/navbar.css';
-import {IconContext} from 'react-icons'
 import { Component } from 'react';
+import {Nav, Navbar, Button} from 'react-bootstrap'
+import './styles/menu.css'
 
-class NavBar extends Component {
+class NavBar2 extends Component {
     constructor(props){
         super(props);
         this.state= {
@@ -16,36 +15,46 @@ class NavBar extends Component {
         }
     }
     render(){
-    
-    var Data=NavBarUser
-    if (this.props.isUrzednik){
-        Data=NavBarData;
-    }
    
-    
 
     return (
-        <>
-        <IconContext.Provider value={{color: 'white'}}>
-            <nav className='nav-menu'>
-                <ul className='nav-menu-items' >
-                    {Data.map((item, index)=> {
-                        return(
-                            <li key={index} className={item.cName}>
-                                <Link to={item.path}>
-                                    {item.icon}
-                                    <span>{item.title}</span>
-                                </Link>
-                            </li>
-                        )
-                    })}
-                </ul>
+        <>{this.state.isUrzednik ?
+             <Navbar className='color-nav' variant="dark" fixed='top'>
+                <Navbar.Brand href="/">BaUHinia</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <Link to='/CreateSections'>
+                        <Nav.Link href="/CreateSections">Utwórz sektor</Nav.Link>
+                    </Link>
+                    <Link to='/Sections'> 
+                        <Nav.Link href="/Sections">Twoje sektory</Nav.Link>
+                   </Link>
+                   <Link to='/UsersMaps'>
+                       <Nav.Link href='/UsersMaps'>Mapy użytkowników</Nav.Link>
+                   </Link>
+                    <Link to='/ObjectItem'>
+                        <Nav.Link href="/ObjectItem"> Edytuj obiekty</Nav.Link>
+                    </Link>
+                    </Nav>
+                    <Button variant='primary' className="mr-sm-2" >Wyloguj się</Button>
+                    
+            
+            </Navbar> :
+            <Navbar className='color-nav' variant="dark">
+            <Navbar.Brand href="/">BaUHinia</Navbar.Brand>
+            <Nav className="mr-auto">
+                <Link to='/YourMaps'>
+                    <Nav.Link href="/YourMaps">Moje mapy</Nav.Link>
+                </Link>
+                <Button variant='primary' className="mr-sm-2" >Wyloguj się</Button>
+                </Nav>
+                </Navbar>
 
-            </nav>
-            </IconContext.Provider>
+        }
+         
+        
         </>
     )
                 }
 }
 
-export default NavBar
+export default NavBar2
