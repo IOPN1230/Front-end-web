@@ -29,6 +29,7 @@ Repozytorium do zarządzania aplikacją przeglądarkową.
 - http://getbem.com/introduction/ CSS
 
 ## Dokumentacja techniczna
+- [Plik word](https://tulodz-my.sharepoint.com/:w:/g/personal/203397_edu_p_lodz_pl/EddvK1vCReFImH6SebB1HRUBgvNcfNe4yLuv95gw9w6BEA?e=0SMaNB)
 
 ## Dokumentacja użytkownika
 
