@@ -45,6 +45,9 @@ class NavBar2 extends Component {
                 <Link to='/YourMaps'>
                     <Nav.Link href="/YourMaps">Moje mapy</Nav.Link>
                 </Link>
+                <Link to='/AllSections'>
+                    <Nav.Link href='/AllSections'>Nowe mapy</Nav.Link>
+                </Link>
                
                 </Nav>
                      <Button variant='primary' className="mr-sm-2" >Wyloguj się</Button>

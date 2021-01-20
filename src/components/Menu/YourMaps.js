@@ -94,7 +94,7 @@ class YourMaps extends Component {
         }) 
         return (
         <div className="yourMaps">
-           <h3>Rozwiąż swoje mapy</h3> 
+           <h3>Twoje mapy</h3> 
            <div>{newdata}</div>
         </div>
     )

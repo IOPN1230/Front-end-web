@@ -13,7 +13,8 @@ import CreateSections from './components/Menu/CreateSections';
 import UsersMaps from './components/Menu/UsersMaps';
 import ObjectItem from './components/Menu/ObjectItem';
 import YourMaps from './components/Menu/YourMaps';
-import Home from './components/Menu/Home'
+import Home from './components/Menu/Home';
+import AllSections from './components/Menu/AllSections'
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState(null)
@@ -50,6 +51,9 @@ function App() {
             </Route>
             <Route path='/YourMaps' component={YourMaps}>
               <YourMaps></YourMaps>
+            </Route>
+            <Route path='/AllSections' component={AllSections}>
+              <AllSections></AllSections>
             </Route>
            
           </Switch>
