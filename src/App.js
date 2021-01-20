@@ -32,7 +32,7 @@ function App() {
             <Route path="/" exact compotent={Home}>
               <Home></Home>
             </Route>
-            <Route path="/edytor">
+            <Route path="/Edytor" component={DisplayEditor}>
               <DisplayEditor/>
             </Route>
 

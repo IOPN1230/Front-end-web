@@ -4,6 +4,9 @@
 import React, {Component} from 'react'
 import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
 import {Map, TileLayer} from 'react-leaflet';
+import {ActionsMap} from '../../service/Actions';
+import Rating from '@material-ui/lab/Rating'
+
 //import './styles/menu.css'
 
 class usersMaps extends Component {
@@ -12,33 +15,40 @@ class usersMaps extends Component {
         this.state = {
             showModal : false,
             requiredItem : 0,
-            data: [{
-                id: "1",
-                name: "Galeria Łódzka",
-                date: "24.09.2017",
-                author: "UrzędnikJan",
-                rate: 3,
-                position: [51.759273529052734,19.460887908935547]
-                
-            },
-            {
-                id: "2",
-                name: "Kościół Najświętszego Serca Jezusowego",
-                date: "23.09.2019",
-                author: "UrzędnikJan",
-                rate: 2,
-                position: [51.7452128,19.4039433]
-            },
-            {
-                id: "3",
-                name: "Manufaktura",
-                date: "02.09.2017",
-                author: "UrzędnikJan",
-                rate: 1,
-                position: [51.7794645,19.4444571]
-            }]
+            data: [],
+            keys: []
         }
+        ActionsMap.getList().then((list)=>{
+            let data= []
+            let keys =[]
+           
+            for (let [key, value] of Object.entries(list)) {
+                data.push(value)
+                keys.push(key)
+                //console.log(JSON.stringify(data))
+               
+            }
+            this.setState({data : data});
+            this.setState({keys:keys});
+            
+        });
     }
+    countCenter(which){
+        
+        
+        let ar=[]
+        for (let x of this.state.data[which].data[0].latlngs){
+            ar.push(x)
+        }
+        let lat= (ar[0].lat+ar[2].lat)/2
+        let lng= (ar[0].lng+ar[2].lng)/2
+        const latlngs2 =[lat, lng]
+        //console.log(latlngs2)
+
+        return latlngs2
+       
+    }
+
 
    render(){
     const mapStyles = {
@@ -53,8 +63,8 @@ class usersMaps extends Component {
                         <Col xs='3'>
                             <Map
                             
-                                center={data.position} 
-                                zoom={12} 
+                                center={this.countCenter(index)} 
+                                zoom={14} 
                                 style={mapStyles}
                                 scrollWheelZoom={false}>
                                 <TileLayer
@@ -68,7 +78,7 @@ class usersMaps extends Component {
                             <Card.Subtitle className='mb-2' style={{fontSize: 10}}>Autor: {data.author}</Card.Subtitle> 
                         </Col>
                         <Col xs='4' >
-                            <Card.Subtitle className='mb-2'>Ocena: {data.rate} /5 </Card.Subtitle>
+                            <Rating name="half-rating" defaultValue={data.rating}  precision={0.5} name={index} size="large" />
                         </Col>
                         <Col>
                           <ButtonToolbar>
