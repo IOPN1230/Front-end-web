@@ -65,6 +65,17 @@ class DataActions {
 const pathObject = "object"
 const pathMap = "map"
 const pathSection = "section"
+
 export const ActionsObject = new DataActions(DatabaseConnection.db.ref('/data_'+pathObject+'/'))
 export const ActionsMap = new DataActions(DatabaseConnection.db.ref('/data_'+pathMap+'/'))
 export const ActionsSection = new DataActions(DatabaseConnection.db.ref('/data_'+pathSection+'/'))
+
+const Actions = {
+    ActionsObject: ActionsObject,
+    ActionsMap: ActionsMap,
+    ActionsSection: ActionsSection
+}
+
+export default Actions
+
+

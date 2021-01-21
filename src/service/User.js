@@ -17,6 +17,13 @@ class _User {
                     if(this.currentUserType == null) {
                         this.currentUserType = UserType.citizen;
                     }
+                    DatabaseConnection.db.ref('/user/' + this.currentUser.uid).get().then((user) => {
+                        if (user.val() === null) {
+                            DatabaseConnection.db.ref('/user/' + this.currentUser.uid).set({
+                                displayName: this.currentUser.displayName
+                            })
+                        }
+                    })
                     this.onUserChanged.next(this.getUserData())
                 })
             }
@@ -50,6 +57,11 @@ class _User {
         }
     }
 
+    getUserDisplayName(uid) {
+        return DatabaseConnection.db.ref('/user/' + this.currentUser.uid).then((user) =>
+            user === null ? this.currentUser.uid : user.displayName
+        )
+    }
 }
 
 export const User = new _User()
