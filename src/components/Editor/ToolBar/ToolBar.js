@@ -5,25 +5,18 @@ import BrowserTool from '../Tool/BrowserTool'
 import OfficialTool from '../Tool/OfficialTool'
 
 
-function useUserType(userID) {
+function ToolBar(props) {      //Funckja wyswitelająca odpowiedni(zgodny z typem uzytkownika) zestaw narzedzi na Toolbar 
 
-  const userType = 0;     //0 - tryb mieszkańca;  1 - tryb przegladarki; 2- tryb urzednika
-
-  return userType
-}
-
-function ToolBar(props) {      //Funckja wyswitelająca odpowiedni(zodny z typem uzytkownika) zestaw narzedzi na Toolbar 
-
-  const userType = useUserType(props.id);
+  const userType = parseInt(props.id);
 
   if (userType === 0) {
     return (
       <>
         <div>
           <nav className='nav-menu' >
-            <ul className='nav-menu-items'>
-              <HabitantTool />
-            </ul>
+            {/* <ul className='nav-menu-items'> */}
+            <HabitantTool />
+            {/* </ul> */}
           </nav>
         </div>
       </>
@@ -34,9 +27,9 @@ function ToolBar(props) {      //Funckja wyswitelająca odpowiedni(zodny z typem
       <>
         <div>
           <nav className='nav-menu' >
-            <ul className='nav-menu-items'>
-              <BrowserTool />
-            </ul>
+            {/* <ul className='nav-menu-items'> */}
+            <BrowserTool />
+            {/* </ul> */}
           </nav>
         </div>
       </>
@@ -48,9 +41,9 @@ function ToolBar(props) {      //Funckja wyswitelająca odpowiedni(zodny z typem
       <>
         <div>
           <nav className='nav-menu' >
-            <ul className='nav-menu-items'>
-              <OfficialTool />
-            </ul>
+            {/* <ul className='nav-menu-items'> */}
+            <OfficialTool />
+            {/* </ul> */}
           </nav>
         </div>
       </>
