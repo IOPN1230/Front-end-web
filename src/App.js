@@ -33,8 +33,8 @@ function App() {
             <Route path="/" exact compotent={Home}>
               <Home></Home>
             </Route>
-            <Route path="/Edytor" component={DisplayEditor}>
-              <DisplayEditor/>
+             <Route path="/Edytor" component={DisplayEditor}>
+              <DisplayEditor id={2}/>
             </Route>
 
             <Route path='/CreateSections' component={CreateSections}>
