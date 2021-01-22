@@ -16,6 +16,7 @@
     "leaflet-draw": "^1.0.4",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
+    "react-cookie": "^4.0.3",
     "react-dom": "^16.14.0",
     "react-icons": "^4.1.0",
     "react-image-mapper": "0.0.15",

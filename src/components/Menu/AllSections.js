@@ -7,11 +7,17 @@ import {Map, TileLayer} from 'react-leaflet';
 import {ActionsSection} from './../../service/Actions'
 import './styles/menu.css'
 import Rating from '@material-ui/lab/Rating'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
+class AllSections extends Component {
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
 
-class  AllSections extends Component {
     constructor(props ){
         super(props);
+
         this.state = {
             showModal : false,
             requiredItem : 0,
@@ -27,7 +33,6 @@ class  AllSections extends Component {
                
                 data.push(value)
                 keys.push(key)
-               
                 //console.log(JSON.stringify(data))
                
             }
@@ -53,11 +58,18 @@ class  AllSections extends Component {
        
     }
 
+    selectMap(currentMap) {
+        console.log(currentMap)
+        const { cookies } = this.props;
+        cookies.set('currentMapEdit', currentMap, { path: '/' });
+        document.location.href = "/Edytor";
+    }
+
     render(){
         const mapStyles = {
             width: '100%',
             height: '100%',
-          };
+        };
         
         const newdata = this.state.data.map( (data, index) =>{
         return(
@@ -87,7 +99,7 @@ class  AllSections extends Component {
                         </Col>
                         <Col>
                           <ButtonToolbar>
-                                <Button variant='primary'> Dodaj </Button>      
+                                <Button variant='primary' onClick={() => this.selectMap(data)}> Dodaj </Button>      
                          </ButtonToolbar>
                         </Col>                
                     </Row>   
@@ -106,4 +118,4 @@ class  AllSections extends Component {
    
 }
 
-export default AllSections
+export default withCookies(AllSections)

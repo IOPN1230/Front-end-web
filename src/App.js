@@ -45,7 +45,7 @@ function App() {
               <CreateSections></CreateSections>
             </Route>
             <Route path='/Sections' component={Sections}>
-              <Sections></Sections>
+              <Sections/>
             </Route>
             <Route path='/UsersMaps' component={UsersMaps}>
               <UsersMaps></UsersMaps>
