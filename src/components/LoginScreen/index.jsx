@@ -1,4 +1,4 @@
-import React, {useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState } from 'react';
 import {Box,Button} from '@material-ui/core';
 import logo from './images/logo192.png'
 import styles from './styles.module.css';
@@ -6,23 +6,30 @@ import { AuthorizationSystem } from '../../service/AuthorizationSystem'
 import { User } from '../../service/User'
 
 export default function LoginScreen(props) {
-
+    const [mounted, setMounted] = useState(true)
     const onUserChangedSubscription = useRef(null);
     useEffect(()=>{
-        onUserChangedSubscription.current = User.onUserChanged.subscribe((user)=>{
-            if(user == null) {
-                return;
-            }
-            console.log(user)
 
-            let userType = User.getUserData().userType
-            props.setAuthenticatedUser(userType)
-
-            if(onUserChangedSubscription.current != null) {
-                onUserChangedSubscription.current.unsubscribe()
-                onUserChangedSubscription.current = null
-            }
-        })
+            onUserChangedSubscription.current = User.onUserChanged.subscribe((user)=>{
+                if(user == null) {
+                    return;
+                }
+                console.log(user)
+                
+                let userData = User.getUserData()
+                let userType = null
+    
+                if (userData) {
+                    userType = User.getUserData().userType
+                }
+    
+                props.setAuthenticatedUser(userType)
+    
+                if(onUserChangedSubscription.current != null) {
+                    onUserChangedSubscription.current.unsubscribe()
+                    onUserChangedSubscription.current = null
+                }
+            })
     })
 
     const handleCitizenAuthentication = () => {

@@ -3,63 +3,61 @@
  */
 import React from 'react';
 import  {Link} from 'react-router-dom';
-import { Component } from 'react';
 import {Nav, Navbar, Button} from 'react-bootstrap'
 import './styles/menu.css'
+import {AuthorizationSystem} from '../../service/AuthorizationSystem'
 
-class NavBar2 extends Component {
-    constructor(props){
-        super(props);
-        this.state= {
-            isUrzednik : props.isUrzednik
-        }
+export default function NavBar(props) {
+
+    const handleSignOut = () => {
+        AuthorizationSystem.doSigningOut().then(state => {
+            if (state) {
+                    props.onSignOut()
+            }
+        })
     }
 
-    render(){
-   
-
     return (
-        <>{this.state.isUrzednik ?
-             <Navbar className='color-nav' variant="dark" fixed='top'>
+        <>
+            {props.isUrzednik ?
+                <Navbar className='color-nav' variant="dark" fixed='top'>
+                    <Navbar.Brand href="/">BaUHinia</Navbar.Brand>
+                    <Nav className="mr-auto">
+                        <Link to='/CreateSections'>
+                            <Nav.Link href="/CreateSections">Utwórz sektor</Nav.Link>
+                        </Link>
+                        <Link to='/Sections'> 
+                            <Nav.Link href="/Sections">Twoje sektory</Nav.Link>
+                    </Link>
+                    <Link to='/UsersMaps'>
+                        <Nav.Link href='/UsersMaps'>Mapy użytkowników</Nav.Link>
+                    </Link>
+                        <Link to='/ObjectItem'>
+                            <Nav.Link href="/ObjectItem"> Edytuj obiekty</Nav.Link>
+                        </Link>
+                        </Nav>
+                        <Button variant='primary' className="mr-sm-2" onClick={handleSignOut}>Wyloguj się</Button>
+                        
+                
+                </Navbar> :
+                <Navbar className='color-nav' variant="dark">
                 <Navbar.Brand href="/">BaUHinia</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Link to='/CreateSections'>
-                        <Nav.Link href="/CreateSections">Utwórz sektor</Nav.Link>
+                    <Link to='/YourMaps'>
+                        <Nav.Link href="/YourMaps">Moje mapy</Nav.Link>
                     </Link>
-                    <Link to='/Sections'> 
-                        <Nav.Link href="/Sections">Twoje sektory</Nav.Link>
-                   </Link>
-                   <Link to='/UsersMaps'>
-                       <Nav.Link href='/UsersMaps'>Mapy użytkowników</Nav.Link>
-                   </Link>
-                    <Link to='/ObjectItem'>
-                        <Nav.Link href="/ObjectItem"> Edytuj obiekty</Nav.Link>
+                    <Link to='/AllSections'>
+                        <Nav.Link href='/AllSections'>Nowe mapy</Nav.Link>
                     </Link>
+                
                     </Nav>
-                    <Button variant='primary' className="mr-sm-2" >Wyloguj się</Button>
-                    
-            
-            </Navbar> :
-            <Navbar className='color-nav' variant="dark">
-            <Navbar.Brand href="/">BaUHinia</Navbar.Brand>
-            <Nav className="mr-auto">
-                <Link to='/YourMaps'>
-                    <Nav.Link href="/YourMaps">Moje mapy</Nav.Link>
-                </Link>
-                <Link to='/AllSections'>
-                    <Nav.Link href='/AllSections'>Nowe mapy</Nav.Link>
-                </Link>
-               
-                </Nav>
-                     <Button variant='primary' className="mr-sm-2" >Wyloguj się</Button>
-                </Navbar>
+                        <Button variant='primary' className="mr-sm-2" onClick={handleSignOut}>Wyloguj się</Button>
+                    </Navbar>
 
-        }
-         
-        
+            }
         </>
     )
-                }
 }
 
-export default NavBar2
+
+

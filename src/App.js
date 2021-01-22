@@ -19,22 +19,26 @@ import AllSections from './components/Menu/AllSections'
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState(null)
 
+  const handleSignOut = () => {
+    setAuthenticatedUser(null)
+  }
+
   return (
       <div className="App">
         <Router>
           {authenticatedUser? null : <LoginScreen setAuthenticatedUser={setAuthenticatedUser}/>}
               {authenticatedUser==='citizen'
-                ? <NavBar2 isUrzednik={false}/> : null
+                ? <NavBar2 isUrzednik={false} onSignOut={handleSignOut} /> : null
               }
               {authenticatedUser==='official'
-                ? <NavBar2 isUrzednik={true}/> : null
+                ? <NavBar2 isUrzednik={true} onSignOut={handleSignOut} /> : null
               }
           <Switch>
             <Route path="/" exact compotent={Home}>
               <Home></Home>
             </Route>
-            <Route path="/Edytor" component={DisplayEditor}>
-              <DisplayEditor/>
+             <Route path="/Edytor" component={DisplayEditor}>
+              <DisplayEditor id={2}/>
             </Route>
 
             <Route path='/CreateSections' component={CreateSections}>
