@@ -2,10 +2,11 @@
 
 .home, .sections, .usersMaps, .editObjects, .yourMaps{
   padding-top: 6rem;
-  padding-left: 10rem;
-  padding-right: 15rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  align-content: center;
   
 }
 .color-nav{
