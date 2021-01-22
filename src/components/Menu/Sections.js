@@ -48,7 +48,7 @@ class  Sections extends Component {
         let lng= (ar[0].lng+ar[2].lng)/2
         const latlngs2 =[lat, lng]
        // console.log(latlngs2)
-
+        
         return latlngs2
        
     }

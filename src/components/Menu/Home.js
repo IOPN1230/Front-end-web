@@ -26,7 +26,7 @@ class Home extends Component{
     return (
       <>
       <Container fluid className='home'>
-        <h1>Witaj!</h1>
+       
         <img src={logo} alt="BauHlina" class="logo"/>
       
       </Container>
