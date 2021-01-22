@@ -4,14 +4,14 @@
   background-color: white;
   height: 95px;
   width: 70%;
-  margin-left: 15%;
+  /* margin-left: 15%; */
   margin-top: 5%;
   margin-bottom: 5%;
   border-radius: 20px;
 }
 
 p {
-  margin-left: 10%;
+  /* margin-left: 10%; */
   margin-top: 20%;
   margin-bottom: 5%;
 }
@@ -30,8 +30,8 @@ p {
   margin-bottom: 5%;
   height: 10hv;
   width: 90%;
-  margin-left: 5%;
-  left: 5%;
+  /* margin-left: 5%; */
+  /* left: 5%; */
 }
 
 /* sam pasek boczny*/
