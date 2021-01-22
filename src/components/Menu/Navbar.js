@@ -14,6 +14,7 @@ class NavBar2 extends Component {
             isUrzednik : props.isUrzednik
         }
     }
+
     render(){
    
 

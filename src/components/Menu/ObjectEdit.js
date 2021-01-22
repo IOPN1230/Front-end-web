@@ -48,6 +48,7 @@ class ObjectEdit extends Component {
     handleSave(){
         const item = this.state;
         this.props.savemodal(item, this.props.kij)
+        alert('Obiekt zaktualizowany.')
     };
     
     render(){

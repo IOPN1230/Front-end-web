@@ -50,7 +50,7 @@ export default function LoginScreen(props) {
 
                     <span style={{marginLeft: '10px'}}>Zaloguj z Google</span>
                 </Button>
-                <Button onClick={handleOfficialAuthentication}>Zaloguj jako urzędnik</Button>
+                {/* <Button onClick={handleOfficialAuthentication}>Zaloguj jako urzędnik</Button> */}
             </Box>
             
             <a className={styles['freepik-link']} 

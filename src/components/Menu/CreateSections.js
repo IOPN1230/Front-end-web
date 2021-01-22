@@ -63,6 +63,7 @@ const  CreateSections = () => {
         var date = ('0'+(today.getDate())).slice(-2)+'.'+('0'+(today.getMonth()+1)).slice(-2)+'.'+today.getFullYear();
         if(sectorData.length){
              ActionsSection.createAndSetValue({"author":User.getUserData().uid,"date": date, "name": name, "data":sectorData})
+             alert('Sektor utworzony.')
         }else{
             alert('Zaznacz obszar sektora!')
         }
