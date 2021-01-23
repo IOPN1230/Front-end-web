@@ -45,56 +45,12 @@ import axios from 'axios';
 const map_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution = '&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 
-const position = [51.778285, 19.449863];
-const zoom = 15
-
-const customMarker = new L.Icon({
-    iconUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png",
-    iconSize: [25, 41],
-    iconAnchor: [10, 41],
-    popupAnchor: [2, -40]
-});
-
-
-
 function MAP(props) {
     const [center, setCenter] = useState([48, 35])
     const [clickTime, setClickTime] = useState(0)
     const [cookies, setCookie] = useCookies();
     const [total, setTotal] = useState(0)
 
-    const data = [{
-        name: "Ławka",
-        date: "24.09.2017",
-        author: "Janek",
-        price: 150,
-        heatSign: 1.02,
-        influenceRadius: 7,
-        // image: "https://atlas-content-cdn.pixelsquid.com/stock-images/park-bench-G9Y7qP7-600.jpg",
-    },
-    {
-        name: "Drzewo",
-        date: "23.09.2019",
-        author: "Janek",
-        price: 180,
-        heatSign: 1.02,
-        influenceRadius: 79,
-        // image: "https://i.pinimg.com/736x/e3/d4/b1/e3d4b11d382ab78f907e6b569a4e0c3a.jpg",
-
-
-    },
-    {
-        name: "Lampa",
-        date: "02.09.2017",
-        author: "Janek",
-        price: 250,
-        heatSign: 1.32,
-        influenceRadius: 43,
-        // image: "https://www.freepnglogos.com/uploads/street-light-png/electrical-street-light-pole-street-lighting-pole-20.png",
-    }]
-
-    const [markerActivate, setMarkerActivate] = useState(1)
-    const [markerSelect, setMarkerSelect] = useState(0)
     const [marker, setMarker] = useState([51.778285, 19.449863]);
     const [markerList, setMarkerList] = useState([]);
     let layerGroupRef = useRef(null);
@@ -106,47 +62,22 @@ function MAP(props) {
 
     function getGeoJSON() {
         let layerGroup = layerGroupRef.current;
-        console.log("LAYER GROUP", layerGroup);
         let geoJSON = layerGroup.leafletElement.toGeoJSON(6);
-        // let prop = geoJSON.features[0].properties;
-        // prop.heatSign = 55;
-        // let prop1 = geoJSON.features[1].properties;
-        // prop1.heatSign = 7887;
+
         markerList.forEach((marker, index) => {
             geoJSON.features[index].properties.heatSign = marker.heatSign;
             geoJSON.features[index].properties.influenceRadius = marker.influenceRadius;
         })
-        console.log("GEOJSON", geoJSON);
-        let jsondata = JSON.stringify(geoJSON, null, '\t')
-        console.log("JSON to send: ", jsondata);
-        axios('http://localhost:8080/api/heat-map/', {jsondata}).then(async (res) => {
-            //var image = await new Uint8Array(res.data)
-            //var image = await base64ToArrayBuffer(res.data)
-            var blob=new Blob([res.data], {type: "image/jpeg"});
+        
+        //todo
+        //let jsondata = JSON.stringify(geoJSON, null, '\t')
+        axios({method: 'get', url: 'http://localhost:8080/api/heat-map/', responseType: 'arraybuffer'}).then(res => {
+            var blob = new Blob([res.data], {type: "image/png"});
             var link = document.createElement('a');
-            link.href=window.URL.createObjectURL(blob);
-            link.download="myFileName.jpg";
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `MapaCiepła-${props.currentMapEdit.name}.png`;
             link.click();
         })
-    }
-
-    const base64ToArrayBuffer = (base64) => {
-        var binaryString = window.atob(base64);
-        var binaryLen = binaryString.length;
-        var bytes = new Uint8Array(binaryLen);
-        for (var i = 0; i < binaryLen; i++) {
-           var ascii = binaryString.charCodeAt(i);
-           bytes[i] = ascii;
-        }
-        return bytes;
-     }
-
-    function addMarker(e) {
-        setMarker(e.latlng)
-        setMarkerList([...markerList,
-        {
-            marker: marker
-        }])
     }
 
     var calcCenter = function ()
@@ -184,13 +115,11 @@ function MAP(props) {
         return total;
     }
 
-    const sendMap = () => {
-        getGeoJSON()
-    }
-
     return (
         <div className="EditorMap">
-            <Button onClick={() => sendMap()}>Oblicz mapę ciepła</Button>     
+            <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7"/>
+
+            <Button onClick={() => getGeoJSON()}>Oblicz mapę ciepła</Button>     
             <Map
                 id="map"
                 ref={map}
