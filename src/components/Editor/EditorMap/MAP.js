@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import './MAP.css'
 // import ReactDOM from "react-dom";
 import { Marker, Map, TileLayer, LayerGroup, Popup, FeatureGroup } from "react-leaflet";
@@ -7,69 +7,61 @@ import "leaflet/dist/leaflet.css";
 import { EditControl } from "react-leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
-import { EditControler } from '../Tool/CreateSector'
-import ToolBar from "../ToolBar/ToolBar";
 
-let jsondata = {};
 
-// function EditControler() {
+function EditControler() {
+   
+    const _created = (e) => { console.log(e); }
+    const _edited = (e) => { console.log(e); }
+    const _deleted = (e) => { console.log(e); }
 
-//     const _created = (e) => { console.log(e); }
-//     const _edited = (e) => { console.log(e); }
-//     const _deleted = (e) => { console.log(e); }
-
-//     return (
-//         <FeatureGroup
-//             id="FeatureGroup" >
-//             <EditControl
-//                 id="editControl"
-//                 position="topright"
-//                 onCreated={_created}
-//                 onEdited={_edited}
-//                 onDeleted={_deleted}
-//                 draw={
-//                     {
-//                         rectangle: false,
-//                         circle: false,
-//                         circlemarker: false,
-//                         marker: false,
-//                         polyline: false,
-//                     }
-//                 }
-//             />
-//         </FeatureGroup>
-//     )
-// }
+    return (
+        <FeatureGroup
+            id="FeatureGroup" >
+            <EditControl
+                id="editControl"
+                position="topright"
+                onCreated={_created}
+                onEdited={_edited}
+                onDeleted={_deleted}
+                draw={
+                    {
+                        rectangle: false,
+                        circle: false,
+                        circlemarker: false,
+                        marker: false,
+                        polyline: false,
+                    }
+                }
+            />
+        </FeatureGroup>
+    )
+}
 
 const map_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution = '&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 
-const position = [51.778285, 19.449863];
+
 const zoom = 15
-
-const customMarker = new L.Icon({
-    iconUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png",
-    iconSize: [25, 41],
-    iconAnchor: [10, 41],
-    popupAnchor: [2, -40]
-});
+let jsondata = {}
 
 
+export var markerActivate=1;
+export var markerSelect=0;
 
-function MAP(props) {
-    const [center, setCenter] = useState([48, 35])
-    console.log(props)
-
-    const data = [{
+export function setMarkerActivate(i){markerActivate=i}
+export function setMarkerSelect(i){markerSelect=i}
+function MAP() {
+    const data= [{
         name: "Ławka",
         date: "24.09.2017",
         author: "Janek",
         price: 150,
         heatSign: 1.02,
         influenceRadius: 7,
-        // image: "https://atlas-content-cdn.pixelsquid.com/stock-images/park-bench-G9Y7qP7-600.jpg",
-
-
+        image:"https://atlas-content-cdn.pixelsquid.com/stock-images/park-bench-G9Y7qP7-600.jpg",
+        
+        
     },
     {
         name: "Drzewo",
@@ -77,10 +69,10 @@ function MAP(props) {
         author: "Janek",
         price: 180,
         heatSign: 1.02,
-        influenceRadius: 79,
-        // image: "https://i.pinimg.com/736x/e3/d4/b1/e3d4b11d382ab78f907e6b569a4e0c3a.jpg",
-
-
+        influenceRadius : 79,
+        image: "https://i.pinimg.com/736x/e3/d4/b1/e3d4b11d382ab78f907e6b569a4e0c3a.jpg",
+        
+        
     },
     {
         name: "Lampa",
@@ -89,82 +81,105 @@ function MAP(props) {
         price: 250,
         heatSign: 1.32,
         influenceRadius: 43,
-        // image: "https://www.freepnglogos.com/uploads/street-light-png/electrical-street-light-pole-street-lighting-pole-20.png",
+        image: "https://www.freepnglogos.com/uploads/street-light-png/electrical-street-light-pole-street-lighting-pole-20.png",
+        
+        
     }]
-
-    const [markerActivate, setMarkerActivate] = useState(1)
-    const [markerSelect, setMarkerSelect] = useState(0)
-    const [marker, setMarker] = useState([51.778285, 19.449863]);
-    const [markerList, setMarkerList] = useState([]);
+   
+    const [marker,setMarker] = useState({
+        position:[60.778285, 19.449863],
+        image:"https://www.freepnglogos.com/uploads/street-light-png/electrical-street-light-pole-street-lighting-pole-20.png",
+        heatSign:1.32,
+        radius:43,
+        price:250});
+    const [markerList,setMarkerList] = useState( [] );
     let layerGroupRef = useRef(null);
     let map = useRef(null);
+
+
 
     function getGeoJSON() {
         let layerGroup = layerGroupRef.current;
         console.log("LAYER GROUP", layerGroup);
-        let geoJSON = layerGroup.leafletElement.toGeoJSON(6);
-        // let prop = geoJSON.features[0].properties;
-        // prop.heatSign = 55;
-        // let prop1 = geoJSON.features[1].properties;
-        // prop1.heatSign = 7887;
-        console.log("GEOJSON", geoJSON);
-        jsondata = JSON.stringify(geoJSON, null, '\t')
-        console.log("JSON to send: ", jsondata);
+        let geoJSON = layerGroup.leafletElement.toGeoJSON();
+
+                //dodawanie properties
+                let props = geoJSON.features[0].properties;
+                props.heatSign = 43; 
+                props.radious = 12; 
+        
+        
+            jsondata = JSON.stringify(geoJSON, null, '\t')
+            console.log("JSON to send: ", jsondata);
+        
+        
+        
+
     }
+    function iconMaker(url){
+        const customMarker = new L.Icon({
+            iconUrl: url,
+            iconSize: [25, 41],
+            iconAnchor: [10, 41],
+            popupAnchor: [2, -40]
+        });
+        return customMarker       
+        }
 
     function addMarker(e) {
-        setMarker(e.latlng)
+        jsondata = JSON.stringify(markerSelect, null, '\t')
+        console.log("JSON to send: ", jsondata);
+        if(markerActivate===1){
+            var xd=e.latlng
+        setMarker(prevState => ({
+            position:xd,          
+            image:data[markerSelect].image,
+            heatSign:data[markerSelect].heatSign,
+            radius:data[markerSelect].influenceRadius,
+            price:data[markerSelect].price
+
+
+        }))
         setMarkerList([...markerList,
         {
-            marker: marker
-        }])
+        marker:marker}])}
+        console.log(JSON.stringify(markerList));
+
     }
 
-    var calcCenter = function ()
-    {
-        let arr = props.currentMapEdit.data[0].latlngs;
-        var x = arr.map (xy => xy.lat);
-        var y = arr.map (xy => xy.lng);
-        var cx = (Math.min (...x) + Math.max (...x)) / 2;
-        var cy = (Math.min (...y) + Math.max (...y)) / 2;
-        return [cx, cy];
-    }
-
-    useEffect(() => {
-        
-    }, [])
 
     return (
-        <div className="EditorMap">
-            {/* <button onClick={getGeoJSON}>Export</button> */}
+        <div className="mapContainer" >
+            <button onClick={getGeoJSON}>Export</button>
             <Map
                 id="map"
                 ref={map}
-                //onClick={addMarker}
-                center={calcCenter()}
+                onClick={addMarker}
+                center={[53.778285, 19.449863]}
                 style={{
-                    width: "calc(100% - 150px)",
-                    height: "80vh",
-                    left: "150px",
-                    // zIndex: "-10"
+                    width: "110%",
+                    height: "100vh",
+                    // left: "250px"
+                    //   zIndex: "0"
                 }}
                 zoom={zoom}>
-                <LayerGroup id="aa" ref={layerGroupRef}>
-
-                    {markerList.map((m, ind) =>
-                        <Marker key={ind} position={m.marker} >
-                            <Popup>
-                                <p>Add Point at this Location</p>
-                            </Popup>
-                        </Marker>
-                    )}
-                    <EditControler dis={props.id} />
-
+                <LayerGroup ref={layerGroupRef}
+                >
+                    
+                {markerList.map((m,ind) => 
+                    <Marker key={ind} position={m.marker.position} icon={iconMaker(m.marker.image)}>
+                        <Popup>
+                            <p>Add Point at this Location</p>
+                        </Popup>
+                    </Marker>
+                  )}
+                    
+                    <EditControler   />
                 </LayerGroup>
 
                 <TileLayer url={map_URL} attribution={attribution} />
             </Map>
-
+            
         </div>
     );
 }
