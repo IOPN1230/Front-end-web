@@ -87,7 +87,7 @@ class  Sections extends Component {
                         </Col>
                         <Col>
                           <ButtonToolbar>
-                                <Button variant='primary'> Edytuj </Button>      
+                                {/* <Button variant='primary'> Edytuj </Button>       */}
                          </ButtonToolbar>
                         </Col>                
                     </Row>   

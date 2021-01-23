@@ -4,10 +4,13 @@ import logo from './images/logo192.png'
 import styles from './styles.module.css';
 import { AuthorizationSystem } from '../../service/AuthorizationSystem'
 import { User } from '../../service/User'
+import { useCookies } from 'react-cookie';
 
 export default function LoginScreen(props) {
     const [mounted, setMounted] = useState(true)
     const onUserChangedSubscription = useRef(null);
+    const [cookies, setCookie] = useCookies(['userType']);
+
     useEffect(()=>{
 
             onUserChangedSubscription.current = User.onUserChanged.subscribe((user)=>{
@@ -15,7 +18,8 @@ export default function LoginScreen(props) {
                     return;
                 }
                 console.log(user)
-                
+                setCookie('userType', user.userType);
+
                 let userData = User.getUserData()
                 let userType = null
     

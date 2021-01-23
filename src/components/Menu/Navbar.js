@@ -13,6 +13,7 @@ export default function NavBar(props) {
         AuthorizationSystem.doSigningOut().then(state => {
             if (state) {
                     props.onSignOut()
+                    window.location = '/';
             }
         })
     }

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import './MAP.css'
 // import ReactDOM from "react-dom";
 import { Marker, Map, TileLayer, LayerGroup, Popup, FeatureGroup } from "react-leaflet";
@@ -11,35 +11,6 @@ import { EditControler } from '../Tool/CreateSector'
 import ToolBar from "../ToolBar/ToolBar";
 
 let jsondata = {};
-
-function updateJSONbin() {
-    fetch(
-        // "/api",
-        "https://api.jsonbin.io/b",
-        {
-            method: "POST",
-            headers: { //Required only if you are trying to access a private bin
-                "secret-key": "$2b$10$.gikz1.HgnqWB5vL4fs.puC1JLA3O4A7tumDiGIAT1AZA/KzZ.wCC",
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: jsondata
-        })
-        .then(response => {
-            let json = response.json();
-            console.log("DODANO", json);
-            // if (!response.ok) {
-            //     throw new Error("Network response was not ok");
-            // }
-            // return response.blob();
-        })
-        .catch(error => {
-            console.error(
-                "There has been a problem with your fetch operation:",
-                error
-            );
-        });
-}
 
 // function EditControler() {
 
@@ -86,6 +57,9 @@ const customMarker = new L.Icon({
 
 
 function MAP(props) {
+    const [center, setCenter] = useState([48, 35])
+    console.log(props)
+
     const data = [{
         name: "Ławka",
         date: "24.09.2017",
@@ -116,9 +90,8 @@ function MAP(props) {
         heatSign: 1.32,
         influenceRadius: 43,
         // image: "https://www.freepnglogos.com/uploads/street-light-png/electrical-street-light-pole-street-lighting-pole-20.png",
-
-
     }]
+
     const [markerActivate, setMarkerActivate] = useState(1)
     const [markerSelect, setMarkerSelect] = useState(0)
     const [marker, setMarker] = useState([51.778285, 19.449863]);
@@ -145,22 +118,33 @@ function MAP(props) {
         {
             marker: marker
         }])
-
     }
 
+    var calcCenter = function ()
+    {
+        let arr = props.currentMapEdit.data[0].latlngs;
+        var x = arr.map (xy => xy.lat);
+        var y = arr.map (xy => xy.lng);
+        var cx = (Math.min (...x) + Math.max (...x)) / 2;
+        var cy = (Math.min (...y) + Math.max (...y)) / 2;
+        return [cx, cy];
+    }
 
+    useEffect(() => {
+        
+    }, [])
 
     return (
-        <div className="mapContainer">
-            <button onClick={getGeoJSON}>Export</button>
+        <div className="EditorMap">
+            {/* <button onClick={getGeoJSON}>Export</button> */}
             <Map
                 id="map"
                 ref={map}
-                onClick={addMarker}
-                center={[51.778285, 19.449863]}
+                //onClick={addMarker}
+                center={calcCenter()}
                 style={{
                     width: "calc(100% - 150px)",
-                    height: "90vh",
+                    height: "80vh",
                     left: "150px",
                     // zIndex: "-10"
                 }}

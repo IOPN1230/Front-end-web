@@ -1,0 +1,17 @@
+
+.DisplayEditor__itemBar {
+    height: 20rem;
+}
+
+.Item > img {
+    height: 5rem;
+    border-radius: 20rem;
+}
+
+.Item {
+    margin: 0 2rem;
+}
+
+.Item:hover {
+    cursor: pointer;
+}

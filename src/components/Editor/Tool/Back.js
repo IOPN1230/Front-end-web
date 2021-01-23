@@ -6,7 +6,7 @@ function Back() {
             <button
                 type="button"
                 className="btn btn-outline-dark btn-lg back"
-                onClick={() => console.log('Wciśnięto "Wróć"')}>
+                onClick={() => window.location = ('/')}>
                 Wróć
         </button>
         </div>
