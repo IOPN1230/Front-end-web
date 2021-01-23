@@ -2,16 +2,16 @@
     Klasa utwórz sektor - w budowie
  */
 import React,{ useState, useRef} from 'react'
-import { ActionsSection } from './../../service/Actions'
-import { User } from './../../service/User'
-import './styles/MAP.css'
+import { ActionsSection } from '../../../service/Actions'
+import { User } from '../../../service/User'
+import './../styles/MAP.css'
 import { Map, TileLayer, FeatureGroup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw';
 import 'leaflet-draw/dist/leaflet.draw.css'
 import {EditControl} from 'react-leaflet-draw';
 import {Button, Modal, Form, Container} from 'react-bootstrap';
-import './styles/menu.css'
+import './../styles/menu.css'
 
 const  CreateSections = () => {
     

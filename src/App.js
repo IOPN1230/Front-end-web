@@ -8,13 +8,13 @@ import './App.css';
 import DisplayEditor from './components/Editor/DisplayEditor';
 import LoginScreen from './components/LoginScreen';
 import NavBar2 from './components/Menu/Navbar';
-import Sections from './components/Menu/Sections';
-import CreateSections from './components/Menu/CreateSections';
-import UsersMaps from './components/Menu/UsersMaps';
-import ObjectItem from './components/Menu/ObjectItem';
-import YourMaps from './components/Menu/YourMaps';
+import Sections from './components/Menu/Sections/Sections';
+import CreateSections from './components/Menu/Sections/CreateSections';
+import UsersMaps from './components/Menu/Maps/UsersMaps';
+import ObjectItem from './components/Menu/Objects/ObjectItem';
+import YourMaps from './components/Menu/Maps/YourMaps';
 import Home from './components/Menu/Home';
-import AllSections from './components/Menu/AllSections'
+import AllSections from './components/Menu/Sections/AllSections'
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState(null)
