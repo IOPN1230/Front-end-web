@@ -2,6 +2,7 @@
 
 .home, .sections, .usersMaps, .editObjects, .yourMaps{
   padding-top: 6rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
