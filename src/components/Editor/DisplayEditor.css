@@ -15,3 +15,7 @@
 .Item:hover {
     cursor: pointer;
 }
+
+.active {
+    border: 2px solid rgb(71, 52, 0);
+}

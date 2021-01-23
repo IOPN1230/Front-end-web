@@ -9,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 import { EditControler } from '../Tool/CreateSector'
 import ToolBar from "../ToolBar/ToolBar";
+import { useCookies } from 'react-cookie';
 
 let jsondata = {};
 
@@ -58,7 +59,9 @@ const customMarker = new L.Icon({
 
 function MAP(props) {
     const [center, setCenter] = useState([48, 35])
-    console.log(props)
+    const [coordinates, setCoordinates] = useState()
+    const [clickTime, setClickTime] = useState(0)
+    const [cookies] = useCookies();
 
     const data = [{
         name: "Ławka",
@@ -130,9 +133,16 @@ function MAP(props) {
         return [cx, cy];
     }
 
-    useEffect(() => {
-        
-    }, [])
+    const addItem = (e) => {
+        setCoordinates({x: e.latlng.lat, y: e.latlng.lng})
+        setClickTime(Date.now())
+        if (Date.now() - clickTime < 500) {
+            let confirmValue = window.confirm(`Chcesz dodać ${cookies.selectedObject.name}?`);
+            if (confirmValue === true) {
+                alert('Dodano.');
+            }
+        }
+    }
 
     return (
         <div className="EditorMap">
@@ -148,7 +158,10 @@ function MAP(props) {
                     left: "150px",
                     // zIndex: "-10"
                 }}
-                zoom={zoom}>
+                doubleClickZoom={null}
+                zoom={zoom}
+                onmousedown={(e) => addItem(e)}
+                >
                 <LayerGroup id="aa" ref={layerGroupRef}>
 
                     {markerList.map((m, ind) =>

@@ -50,7 +50,9 @@ class usersMaps extends Component {
     }
 
     addRating(data, value, index) {
-        ActionsMap.setValue(this.state.keys[index] + '/rating' ,value);
+        this.state.data[index].rating = value;
+        ActionsMap.setValue(this.state.keys[index] ,this.state.data[index]);
+        window.location.reload()
     }
 
    render(){
