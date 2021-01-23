@@ -1,6 +1,8 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
-function Cost() {
+
+
+function Cost({total}) {
 
   return (
     <div>
@@ -13,6 +15,7 @@ function Cost() {
           readOnly: true,
         }}
         variant="outlined"
+        value={total}
       />
     </div>
   )

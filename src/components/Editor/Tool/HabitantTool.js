@@ -5,9 +5,11 @@ import Cost from './Cost'
 import Estimate from './Estimate'
 import Export from './Export'
 import Move from './Move'
-
+import { useCookies } from 'react-cookie';
 
 function HabitantTool() {
+    const [cookies] = useCookies();
+
     return (
         <div>
             <Back />
@@ -15,7 +17,7 @@ function HabitantTool() {
             <Delete />
             <Export />
             <Estimate />
-            <Cost />
+            <Cost total={cookies.currentCost}/>
         </div>
     )
 }

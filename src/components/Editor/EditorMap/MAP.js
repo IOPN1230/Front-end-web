@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import './MAP.css'
 // import ReactDOM from "react-dom";
 import { Marker, Map, TileLayer, LayerGroup, Popup, FeatureGroup } from "react-leaflet";
-import L from "leaflet";
+import L, { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { EditControl } from "react-leaflet-draw";
 import "leaflet/dist/leaflet.css";
@@ -59,9 +59,9 @@ const customMarker = new L.Icon({
 
 function MAP(props) {
     const [center, setCenter] = useState([48, 35])
-    const [coordinates, setCoordinates] = useState()
     const [clickTime, setClickTime] = useState(0)
-    const [cookies] = useCookies();
+    const [cookies, setCookie] = useCookies();
+    const [total, setTotal] = useState(0)
 
     const data = [{
         name: "Ławka",
@@ -102,6 +102,10 @@ function MAP(props) {
     let layerGroupRef = useRef(null);
     let map = useRef(null);
 
+    useEffect(() => {
+        setCookie('currentCost', total)
+    }, [])
+
     function getGeoJSON() {
         let layerGroup = layerGroupRef.current;
         console.log("LAYER GROUP", layerGroup);
@@ -133,15 +137,27 @@ function MAP(props) {
         return [cx, cy];
     }
 
-    const addItem = (e) => {
-        setCoordinates({x: e.latlng.lat, y: e.latlng.lng})
+    const addItem = async (e) => {
         setClickTime(Date.now())
+        const total = calculateTotal() + parseFloat(cookies.selectedObject.price);
         if (Date.now() - clickTime < 500) {
+            const marker = cookies.selectedObject;
+            const position = [e.latlng.lat, e.latlng.lng];
+            marker.position = position;
             let confirmValue = window.confirm(`Chcesz dodać ${cookies.selectedObject.name}?`);
             if (confirmValue === true) {
                 alert('Dodano.');
+                setMarkerList([...markerList, marker])
+                setCookie('selectedObject', '');
+                setCookie('currentCost', total);
             }
         }
+    }
+
+    const calculateTotal = () => {
+        let total = 0;
+        markerList.forEach(m => total += parseFloat(m.price))
+        return total;
     }
 
     return (
@@ -165,9 +181,9 @@ function MAP(props) {
                 <LayerGroup id="aa" ref={layerGroupRef}>
 
                     {markerList.map((m, ind) =>
-                        <Marker key={ind} position={m.marker} >
+                        <Marker key={ind} position={m.position} icon={new Icon({iconUrl: m.image, iconSize: [50, 50]})}>
                             <Popup>
-                                <p>Add Point at this Location</p>
+                                {m.name}
                             </Popup>
                         </Marker>
                     )}

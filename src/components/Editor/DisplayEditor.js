@@ -12,7 +12,6 @@ function DisplayEditor(props) {
 
   return (
     <div className="DisplayEditor">
-      {console.log(userType)}
       {/* <Router> */}
       <ToolBar id={0}/>
       <MAP id={props.id} currentMapEdit={cookies.currentMapEdit}/>
