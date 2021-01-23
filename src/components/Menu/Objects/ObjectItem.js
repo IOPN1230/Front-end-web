@@ -5,8 +5,8 @@ import React,{Component} from 'react';
 import { Card, Button, ButtonToolbar, Col, Row , Modal, Form, Container} from 'react-bootstrap';
 import ImageMapper from 'react-image-mapper';
 import ObjectEdit from './ObjectEdit'
-import { ActionsObject } from './../../service/Actions'
-import { User } from './../../service/User'
+import { ActionsObject } from '../../../service/Actions'
+import { User } from '../../../service/User'
 
 
 class ObjectItem extends Component {

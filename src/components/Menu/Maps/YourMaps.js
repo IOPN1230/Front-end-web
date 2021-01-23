@@ -4,17 +4,15 @@
 import React, {Component} from 'react'
 import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
 import {Map, TileLayer} from 'react-leaflet';
-import {ActionsMap} from '../../service/Actions';
+import {ActionsMap} from '../../../service/Actions';
 import Rating from '@material-ui/lab/Rating'
-import { User } from './../../service/User'
+import { User } from '../../../service/User'
+import './../styles/menu.css'
 
-import './styles/menu.css'
 class YourMaps extends Component {
     constructor(props ){
         super(props);
         this.state = {
-            showModal : false,
-            requiredItem : 0,
             data: [],
             keys: []
         }

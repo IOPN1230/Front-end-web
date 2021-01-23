@@ -4,8 +4,8 @@
 import React, {Component} from 'react'
 import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
 import {Map, TileLayer} from 'react-leaflet';
-import {ActionsSection} from './../../service/Actions'
-import './styles/menu.css'
+import {ActionsSection} from '../../../service/Actions'
+import './../styles/menu.css'
 import Rating from '@material-ui/lab/Rating'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
@@ -19,8 +19,6 @@ class AllSections extends Component {
         super(props);
 
         this.state = {
-            showModal : false,
-            requiredItem : 0,
             data: [],
             keys:[],
             value:0,
