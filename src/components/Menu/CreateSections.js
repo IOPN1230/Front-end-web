@@ -64,6 +64,7 @@ const  CreateSections = () => {
         if(sectorData.length){
              ActionsSection.createAndSetValue({"author":User.getUserData().uid,"date": date, "name": name, "data":sectorData})
              alert('Sektor utworzony.')
+             window.location = ('/Sections');
         }else{
             alert('Zaznacz obszar sektora!')
         }

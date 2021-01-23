@@ -6,6 +6,7 @@ import { Card, Button, ButtonToolbar, Col, Row } from 'react-bootstrap';
 import {Map, TileLayer} from 'react-leaflet';
 import {ActionsMap} from '../../service/Actions';
 import Rating from '@material-ui/lab/Rating'
+import { keys } from '@material-ui/core/styles/createBreakpoints';
 
 //import './styles/menu.css'
 
@@ -26,7 +27,6 @@ class usersMaps extends Component {
                 data.push(value)
                 keys.push(key)
                 //console.log(JSON.stringify(data))
-               
             }
             this.setState({data : data});
             this.setState({keys:keys});
@@ -49,6 +49,9 @@ class usersMaps extends Component {
        
     }
 
+    addRating(data, value, index) {
+        ActionsMap.setValue(this.state.keys[index] + '/rating' ,value);
+    }
 
    render(){
     const mapStyles = {
@@ -78,11 +81,13 @@ class usersMaps extends Component {
                             <Card.Subtitle className='mb-2' style={{fontSize: 10}}>Autor: {data.author}</Card.Subtitle> 
                         </Col>
                         <Col xs='4' >
-                            <Rating name="half-rating" defaultValue={data.rating}  precision={0.5} name={index} size="large" />
+                            <Rating name="half-rating" defaultValue={data.rating}  precision={0.5} name={index} size="large" 
+                                onClick = {(e) => this.addRating(data, e.target.value, index)}
+                            />
                         </Col>
                         <Col>
                           <ButtonToolbar>
-                                <Button variant='primary' href="edytor"> Edytuj </Button>     
+                                <Button variant='primary' href="edytor"> Pokaż </Button>     
                          </ButtonToolbar>
                         </Col>                
                     </Row>   
