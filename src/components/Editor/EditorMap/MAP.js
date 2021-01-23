@@ -10,8 +10,8 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import { EditControler } from '../Tool/CreateSector'
 import ToolBar from "../ToolBar/ToolBar";
 import { useCookies } from 'react-cookie';
-
-let jsondata = {};
+import { Button } from "react-bootstrap";
+import axios from 'axios';
 
 // function EditControler() {
 
@@ -71,8 +71,6 @@ function MAP(props) {
         heatSign: 1.02,
         influenceRadius: 7,
         // image: "https://atlas-content-cdn.pixelsquid.com/stock-images/park-bench-G9Y7qP7-600.jpg",
-
-
     },
     {
         name: "Drzewo",
@@ -114,10 +112,34 @@ function MAP(props) {
         // prop.heatSign = 55;
         // let prop1 = geoJSON.features[1].properties;
         // prop1.heatSign = 7887;
+        markerList.forEach((marker, index) => {
+            geoJSON.features[index].properties.heatSign = marker.heatSign;
+            geoJSON.features[index].properties.influenceRadius = marker.influenceRadius;
+        })
         console.log("GEOJSON", geoJSON);
-        jsondata = JSON.stringify(geoJSON, null, '\t')
+        let jsondata = JSON.stringify(geoJSON, null, '\t')
         console.log("JSON to send: ", jsondata);
+        axios('http://localhost:8080/api/heat-map/', {jsondata}).then(async (res) => {
+            //var image = await new Uint8Array(res.data)
+            //var image = await base64ToArrayBuffer(res.data)
+            var blob=new Blob([res.data], {type: "image/jpeg"});
+            var link = document.createElement('a');
+            link.href=window.URL.createObjectURL(blob);
+            link.download="myFileName.jpg";
+            link.click();
+        })
     }
+
+    const base64ToArrayBuffer = (base64) => {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+           var ascii = binaryString.charCodeAt(i);
+           bytes[i] = ascii;
+        }
+        return bytes;
+     }
 
     function addMarker(e) {
         setMarker(e.latlng)
@@ -143,13 +165,15 @@ function MAP(props) {
         if (Date.now() - clickTime < 500) {
             const marker = cookies.selectedObject;
             const position = [e.latlng.lat, e.latlng.lng];
-            marker.position = position;
-            let confirmValue = window.confirm(`Chcesz dodać ${cookies.selectedObject.name}?`);
-            if (confirmValue === true) {
-                alert('Dodano.');
-                setMarkerList([...markerList, marker])
-                setCookie('selectedObject', '');
-                setCookie('currentCost', total);
+            if (marker) {
+                marker.position = position;
+                let confirmValue = window.confirm(`Chcesz dodać ${cookies.selectedObject.name}?`);
+                if (confirmValue === true) {
+                    alert('Dodano.');
+                    setMarkerList([...markerList, marker])
+                    setCookie('selectedObject', '');
+                    setCookie('currentCost', total);
+                }
             }
         }
     }
@@ -160,9 +184,13 @@ function MAP(props) {
         return total;
     }
 
+    const sendMap = () => {
+        getGeoJSON()
+    }
+
     return (
         <div className="EditorMap">
-            {/* <button onClick={getGeoJSON}>Export</button> */}
+            <Button onClick={() => sendMap()}>Oblicz mapę ciepła</Button>     
             <Map
                 id="map"
                 ref={map}
@@ -193,7 +221,6 @@ function MAP(props) {
 
                 <TileLayer url={map_URL} attribution={attribution} />
             </Map>
-
         </div>
     );
 }

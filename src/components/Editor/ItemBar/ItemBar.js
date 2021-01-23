@@ -8,7 +8,6 @@ function ItemBar() {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        //loadItems()
         ActionsObject.getList().then(objects => 
             setData(Object.values(objects))
         )
