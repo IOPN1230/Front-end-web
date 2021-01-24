@@ -5,10 +5,11 @@ import html2canvas from 'html2canvas'; // export mapy do png
 import canvas2image from 'canvas2image-2'; // export mapy do png
 
 function  printDocument(){
-    var map = document.querySelector("#mapContainer");
-    // var map = document.getElementById("#mapContainer");
-    var width = map.offsetWidth;
-    var height = map.offsetHeight;
+
+    var map = document.querySelector("#map");
+    
+    var width = map.offsetWidth;//map.clientWidth; 
+    var height = map.offsetHeight;//map.clientHeight 
     var canvas = document.createElement("canvas");
     var scale = 1; 
 
@@ -18,11 +19,14 @@ function  printDocument(){
 
     var opts = {
         scale: scale,
-        canvas: canvas,
+        canvas: canvas, 
         logging: true,
         width: width,
         heihgt: height,
-        useCORS: true
+        useCORS: true,
+        foreignObjectRendering: false,
+        allowTaint: true,
+        imageTimeout: 0,
     };
 
     html2canvas(map, opts).then(function(canvas) {

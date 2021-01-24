@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import './MAP.css'
 // import ReactDOM from "react-dom";
-import { Marker, Map, TileLayer, LayerGroup, Popup, FeatureGroup } from "react-leaflet";
+import { Marker, Map, TileLayer, LayerGroup, Popup, Polygon, withLeaflet } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { EditControl } from "react-leaflet-draw";
@@ -12,50 +12,10 @@ import ToolBar from "../ToolBar/ToolBar";
 import { useCookies } from 'react-cookie';
 import { Button } from "react-bootstrap";
 import axios from 'axios';
-
-// function EditControler() {
-
-//     const _created = (e) => { console.log(e); }
-//     const _edited = (e) => { console.log(e); }
-//     const _deleted = (e) => { console.log(e); }
-
-//     return (
-//         <FeatureGroup
-//             id="FeatureGroup" >
-//             <EditControl
-//                 id="editControl"
-//                 position="topright"
-//                 onCreated={_created}
-//                 onEdited={_edited}
-//                 onDeleted={_deleted}
-//                 draw={
-//                     {
-//                         rectangle: false,
-//                         circle: false,
-//                         circlemarker: false,
-//                         marker: false,
-//                         polyline: false,
-//                     }
-//                 }
-//             />
-//         </FeatureGroup>
-//     )
-// }
+import PrintControlDefault from 'react-leaflet-easyprint';
 
 const map_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution = '&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-
-const position = [51.778285, 19.449863];
-const zoom = 15
-
-const customMarker = new L.Icon({
-    iconUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png",
-    iconSize: [25, 41],
-    iconAnchor: [10, 41],
-    popupAnchor: [2, -40]
-});
-
-
 
 function MAP(props) {
     const [center, setCenter] = useState([48, 35])
@@ -63,38 +23,6 @@ function MAP(props) {
     const [cookies, setCookie] = useCookies();
     const [total, setTotal] = useState(0)
 
-    const data = [{
-        name: "Ławka",
-        date: "24.09.2017",
-        author: "Janek",
-        price: 150,
-        heatSign: 1.02,
-        influenceRadius: 7,
-        // image: "https://atlas-content-cdn.pixelsquid.com/stock-images/park-bench-G9Y7qP7-600.jpg",
-    },
-    {
-        name: "Drzewo",
-        date: "23.09.2019",
-        author: "Janek",
-        price: 180,
-        heatSign: 1.02,
-        influenceRadius: 79,
-        // image: "https://i.pinimg.com/736x/e3/d4/b1/e3d4b11d382ab78f907e6b569a4e0c3a.jpg",
-
-
-    },
-    {
-        name: "Lampa",
-        date: "02.09.2017",
-        author: "Janek",
-        price: 250,
-        heatSign: 1.32,
-        influenceRadius: 43,
-        // image: "https://www.freepnglogos.com/uploads/street-light-png/electrical-street-light-pole-street-lighting-pole-20.png",
-    }]
-
-    const [markerActivate, setMarkerActivate] = useState(1)
-    const [markerSelect, setMarkerSelect] = useState(0)
     const [marker, setMarker] = useState([51.778285, 19.449863]);
     const [markerList, setMarkerList] = useState([]);
     let layerGroupRef = useRef(null);
@@ -106,56 +34,30 @@ function MAP(props) {
 
     function getGeoJSON() {
         let layerGroup = layerGroupRef.current;
-        console.log("LAYER GROUP", layerGroup);
         let geoJSON = layerGroup.leafletElement.toGeoJSON(6);
-        // let prop = geoJSON.features[0].properties;
-        // prop.heatSign = 55;
-        // let prop1 = geoJSON.features[1].properties;
-        // prop1.heatSign = 7887;
+
         markerList.forEach((marker, index) => {
             geoJSON.features[index].properties.heatSign = marker.heatSign;
             geoJSON.features[index].properties.influenceRadius = marker.influenceRadius;
         })
-        console.log("GEOJSON", geoJSON);
-        let jsondata = JSON.stringify(geoJSON, null, '\t')
-        console.log("JSON to send: ", jsondata);
-        axios('http://localhost:8080/api/heat-map/', {jsondata}).then(async (res) => {
-            //var image = await new Uint8Array(res.data)
-            //var image = await base64ToArrayBuffer(res.data)
-            var blob=new Blob([res.data], {type: "image/jpeg"});
+
+        //todo
+        //let jsondata = JSON.stringify(geoJSON, null, '\t')
+        axios({ method: 'get', url: 'http://localhost:8080/api/heat-map/', responseType: 'arraybuffer' }).then(res => {
+            var blob = new Blob([res.data], { type: "image/png" });
             var link = document.createElement('a');
-            link.href=window.URL.createObjectURL(blob);
-            link.download="myFileName.jpg";
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `MapaCiepła-${props.currentMapEdit.name}.png`;
             link.click();
         })
     }
 
-    const base64ToArrayBuffer = (base64) => {
-        var binaryString = window.atob(base64);
-        var binaryLen = binaryString.length;
-        var bytes = new Uint8Array(binaryLen);
-        for (var i = 0; i < binaryLen; i++) {
-           var ascii = binaryString.charCodeAt(i);
-           bytes[i] = ascii;
-        }
-        return bytes;
-     }
-
-    function addMarker(e) {
-        setMarker(e.latlng)
-        setMarkerList([...markerList,
-        {
-            marker: marker
-        }])
-    }
-
-    var calcCenter = function ()
-    {
+    var calcCenter = function () {
         let arr = props.currentMapEdit.data[0].latlngs;
-        var x = arr.map (xy => xy.lat);
-        var y = arr.map (xy => xy.lng);
-        var cx = (Math.min (...x) + Math.max (...x)) / 2;
-        var cy = (Math.min (...y) + Math.max (...y)) / 2;
+        var x = arr.map(xy => xy.lat);
+        var y = arr.map(xy => xy.lng);
+        var cx = (Math.min(...x) + Math.max(...x)) / 2;
+        var cy = (Math.min(...y) + Math.max(...y)) / 2;
         return [cx, cy];
     }
 
@@ -165,15 +67,19 @@ function MAP(props) {
         if (Date.now() - clickTime < 500) {
             const marker = cookies.selectedObject;
             const position = [e.latlng.lat, e.latlng.lng];
-            if (marker) {
-                marker.position = position;
-                let confirmValue = window.confirm(`Chcesz dodać ${cookies.selectedObject.name}?`);
-                if (confirmValue === true) {
-                    alert('Dodano.');
-                    setMarkerList([...markerList, marker])
-                    setCookie('selectedObject', '');
-                    setCookie('currentCost', total);
+            if (bounds.contains(e.latlng)) {
+                if (marker) {
+                    marker.position = position;
+                    let confirmValue = window.confirm(`Chcesz dodać ${cookies.selectedObject.name}?`);
+                    if (confirmValue === true) {
+                        alert('Dodano.');
+                        setMarkerList([...markerList, marker])
+                        setCookie('selectedObject', '');
+                        setCookie('currentCost', total);
+                    }
                 }
+            } else {
+                alert('Nie można dodać obiektu poza sektorem.');
             }
         }
     }
@@ -184,13 +90,32 @@ function MAP(props) {
         return total;
     }
 
-    const sendMap = () => {
-        getGeoJSON()
+    // sector bounds 
+    const position2 = props.currentMapEdit.data[0].latlngs;
+
+    var tabBounds = function () {
+        let array = []
+        let arr = props.currentMapEdit.data[0].latlngs;
+        for (var a in arr) {
+            let elem = []
+            elem.push(arr[a].lat, arr[a].lng)
+            array.push(elem)
+        }
+        return array;
     }
+
+    let b = tabBounds();
+    const bounds = L.latLngBounds(b)
+    const maxBound = bounds.pad(0.2);
+
+    // print map
+    const PrintControl = withLeaflet(PrintControlDefault);
 
     return (
         <div className="EditorMap">
-            <Button onClick={() => sendMap()}>Oblicz mapę ciepła</Button>     
+            <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7" />
+
+            <Button onClick={() => getGeoJSON()}>Oblicz mapę ciepła</Button>
             <Map
                 id="map"
                 ref={map}
@@ -200,26 +125,32 @@ function MAP(props) {
                     width: "calc(100% - 150px)",
                     height: "80vh",
                     left: "150px",
-                    // zIndex: "-10"
+                    // zIndex: "0"
                 }}
                 doubleClickZoom={null}
-                zoom={zoom}
+                zoom={12}
                 onmousedown={(e) => addItem(e)}
-                >
-                <LayerGroup id="aa" ref={layerGroupRef}>
+                bounds={bounds}
+                maxBounds={maxBound}
+                maxZoom={19}   //przy większym zoomie nie widać mapy tylko szarość
+                preferCanvas="true" // musi być, żeby kształty po eksporcie do png/jpg, były na swoim miejscu
+            >
+                <Polygon positions={position2} color='red' fillOpacity={0.2} fillColor='grey' /> {/* wielokąt wskazujący granice */}
+                <LayerGroup id="layerGroupRef" ref={layerGroupRef}>
 
                     {markerList.map((m, ind) =>
-                        <Marker key={ind} position={m.position} icon={new Icon({iconUrl: m.image, iconSize: [50, 50]})}>
+                        <Marker key={ind} position={m.position} icon={new Icon({ iconUrl: m.image, iconSize: [50, 50] })}>
                             <Popup>
                                 {m.name}
                             </Popup>
                         </Marker>
                     )}
-                    <EditControler dis={props.id} />
+                    {/* <EditControler dis={props.id} /> */}
 
                 </LayerGroup>
 
                 <TileLayer url={map_URL} attribution={attribution} />
+
             </Map>
         </div>
     );
