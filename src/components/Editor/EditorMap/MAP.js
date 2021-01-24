@@ -36,13 +36,28 @@ function MAP(props) {
         let geoJSON = layerGroup.leafletElement.toGeoJSON(6);
 
         markerList.forEach((marker, index) => {
-            geoJSON.features[index].properties.heatSign = marker.heatSign;
-            geoJSON.features[index].properties.influenceRadius = marker.influenceRadius;
+            geoJSON.features[index].properties.heatConduction = marker.heatConducton;
+            geoJSON.features[index].properties.heatDecline = marker.heatDecline;
+            geoJSON.features[index].properties.emission = marker.emission;
         })
-        
+
+        let latlngsArr = props.currentMapEdit.data[0].latlngs.map(item => [item.lng, item.lat])
+        latlngsArr[latlngsArr.length] = latlngsArr[0];
+        const payload = {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+                type: 'Polygon',
+                coordinates: [
+                    latlngsArr
+                ]
+            }
+        }
+        geoJSON.features[markerList.length] = payload;
+
         let jsondata = JSON.stringify(geoJSON, null, '\t')
-        console.log(jsondata);
-        axios({method: 'post', url: 'http://iopn1230backend.westeurope.azurecontainer.io:8080/api/heat-map/', responseType: 'arraybuffer'}, jsondata).then(res => {
+
+        axios({method: 'post', url: 'http://localhost:8080/api/heat-map/', responseType: 'arraybuffer', data: jsondata}).then(res => {
             var blob = new Blob([res.data], {type: "image/png"});
             var link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
