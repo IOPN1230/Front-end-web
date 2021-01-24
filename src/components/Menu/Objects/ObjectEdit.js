@@ -79,61 +79,61 @@ class ObjectEdit extends Component {
                 <Modal.Body>
                     <Container>
                         <Form>
-                            <Form.Group as={Row} controlId="formHeatSign">
-                                <Form.Label column sm="8">
-                                    HeatConducton
-                                            </Form.Label>
-                                <Col sm="2">
-                                    <Form.Control type="heatsign" defaultValue={this.props.heatConducton} onChange={(e) => this.heatConductonHandler(e)} />
-                                </Col>
-                                {/* <Col>
-                                    <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>??</Form.Text>
-                                </Col> */}
-                            </Form.Group>
-
                             <Form.Group as={Row} controlId="formPrice">
                                 <Form.Label column sm="8">
                                     Cena
                                             </Form.Label>
                                 <Col sm="2">
-                                    <Form.Control className='ml-0' type="price" defaultValue={this.props.price} onChange={(e) => this.priceHandler(e)} />
+                                    <Form.Control className='ml-0' type="number" defaultValue={this.props.price} onChange={(e) => this.priceHandler(e)} />
                                 </Col>
                                 <Col>
                                     <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>PLN</Form.Text>
                                 </Col>
                             </Form.Group>
-
-                            <Form.Group as={Row} controlId="formInfluenceRadius">
+                            
+                            <Form.Group as={Row} controlId="formHeatSign">
                                 <Form.Label column sm="8">
-                                    Heat Decline
+                                    Współczynnik przewodnictwa ciepła
                                             </Form.Label>
                                 <Col sm="2">
-                                    <Form.Control type="influenceRadius" defaultValue={this.props.heatDecline} onChange={(e) => this.heatDeclineHandler(e)} />
+                                    <Form.Control type="number" defaultValue={this.props.heatConducton} onChange={(e) => this.heatConductonHandler(e)} />
                                 </Col>
-                                {/* <Col>
-                                    <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>m</Form.Text>
-                                </Col> */}
+                                <Col>
+                                    <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>W / m &times; K</Form.Text>
+                                </Col> 
                             </Form.Group>
 
                             <Form.Group as={Row} controlId="formInfluenceRadius">
                                 <Form.Label column sm="8">
-                                    Emission
+                                    Strata cieplna
                                             </Form.Label>
                                 <Col sm="2">
-                                    <Form.Control type="influenceRadius" defaultValue={this.props.emission} onChange={(e) => this.emissionHandler(e)} />
+                                    <Form.Control type="number" defaultValue={this.props.heatDecline} onChange={(e) => this.heatDeclineHandler(e)} />
                                 </Col>
-                                {/* <Col>
-                                    <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>m</Form.Text>
-                                </Col> */}
+                                <Col>
+                                    <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>W / m <sup>2</sup> &times; K </Form.Text>
+                                </Col> 
+                            </Form.Group>
+
+                            <Form.Group as={Row} controlId="formInfluenceRadius">
+                                <Form.Label column sm="8">
+                                    Promieniowanie cieplne
+                                            </Form.Label>
+                                <Col sm="2">
+                                    <Form.Control type="number" defaultValue={this.props.emission} onChange={(e) => this.emissionHandler(e)} />
+                                </Col>
+                                 <Col>
+                                    <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>J</Form.Text>
+                                </Col> 
                             </Form.Group>
                         </Form>
                     </Container>
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button style={{ background: ' rgb(21, 9, 53)', border: ' rgb(21, 9, 53)' }} onClick={() => { this.handleSave() }}> Zapisz </Button>
+                    
                     <Button onClick={this.props.onHide}>Zamknij</Button>
-
+                    <Button style={{ background: ' rgb(21, 9, 53)', border: ' rgb(21, 9, 53)' }} onClick={() => { this.handleSave() }}> Zapisz zmiany</Button>
                 </Modal.Footer>
             </Modal>
 

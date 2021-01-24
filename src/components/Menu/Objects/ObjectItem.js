@@ -123,13 +123,13 @@ class ObjectItem extends Component {
                             <Card.Subtitle className='mb-2' style={{fontSize: 10}}>Data utworzenia:  {data.date}</Card.Subtitle>
                             <Card.Subtitle className='mb-2' style={{fontSize: 10}}>Autor: {data.author}</Card.Subtitle> 
                         </Col>
-                        <Col xs='4' >
+                        <Col xs='5' >
                             {/* <Card.Subtitle className='mb-2'>Współczynnik ciepła: {data.heatSign} W / m <sup>2</sup> &times; K </Card.Subtitle> */}
                             <Card.Subtitle className='mb-2'>Cena: {data.price} PLN</Card.Subtitle>
                             {/* <Card.Subtitle className='mb-2'>Promień oddziaływania: {data.influenceRadius} m</Card.Subtitle> */}
-                            <Card.Subtitle className='mb-2'>Emission: {data.emission}  </Card.Subtitle>
-                            <Card.Subtitle className='mb-2'>Heat Conducton: {data.heatConducton} </Card.Subtitle>
-                            <Card.Subtitle className='mb-2'>Heat Decline: {data.heatDecline} </Card.Subtitle>
+                            <Card.Subtitle className='mb-2'>Promieniowanie cieplne: {data.emission} J </Card.Subtitle>
+                            <Card.Subtitle className='mb-2'> Współczynnik przewodnictwa ciepła: {data.heatConducton} W / m  &times; K</Card.Subtitle>
+                            <Card.Subtitle className='mb-2'>Strata cieplna: {data.heatDecline} W / m <sup>2</sup> &times; K</Card.Subtitle>
                         </Col>
                         <Col >
                           <ButtonToolbar >
@@ -212,31 +212,31 @@ class ObjectItem extends Component {
                                      </Col>
                                 </Form.Group> */}
                                 <Form.Group as={Row} controlId="priceAdd">
-                                    <Form.Label column sm="5">Emission: </Form.Label>
+                                    <Form.Label column sm="5">Promieniowanie cieplne:  </Form.Label>
                                     <Col sm="3">
                                         <Form.Control type="number" onChange={(e)=>this.handleEmission(e)}/>
                                     </Col>
-                                    {/* <Col>
-                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
-                                    </Col> */}
+                                    <Col>
+                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>J</Form.Text>
+                                    </Col> 
                                 </Form.Group>
                                 <Form.Group as={Row} controlId="priceAdd">
-                                    <Form.Label column sm="5">HeatConducton: </Form.Label>
+                                    <Form.Label column sm="5">Współczynnik przewodnictwa ciepła:  </Form.Label>
                                     <Col sm="3">
                                         <Form.Control type="number" onChange={(e)=>this.handleHeatConducton(e)}/>
                                     </Col>
-                                    {/* <Col>
-                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
-                                    </Col> */}
+                                    <Col>
+                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>W / m  &times; K</Form.Text>
+                                    </Col> 
                                 </Form.Group>
                                 <Form.Group as={Row} controlId="priceAdd">
-                                    <Form.Label column sm="5">HeatDecline: </Form.Label>
+                                    <Form.Label column sm="5">Strata cieplna: </Form.Label>
                                     <Col sm="3">
                                         <Form.Control type="number" onChange={(e)=>this.handleHeatDecline(e)}/>
                                     </Col>
-                                    {/* <Col>
-                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
-                                    </Col> */}
+                                     <Col>
+                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>W / m <sup>2</sup> &times; K</Form.Text>
+                                    </Col> 
                                 </Form.Group>
 
                         </Form>
@@ -245,8 +245,8 @@ class ObjectItem extends Component {
                    
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.modalClose}> Zamknij </Button>
-                        <Button variant="primary" onClick={this.onSubmit}> Zapisz zmiany</Button>
+                        <Button variant="primary" onClick={this.modalClose}> Zamknij </Button>
+                        <Button style={{ background: ' rgb(21, 9, 53)', border: ' rgb(21, 9, 53)' }} onClick={this.onSubmit}> Zapisz zmiany</Button>
                     </Modal.Footer>
                 </Modal>          
             </div>
