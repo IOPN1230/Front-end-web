@@ -212,31 +212,31 @@ class ObjectItem extends Component {
                                      </Col>
                                 </Form.Group> */}
                                 <Form.Group as={Row} controlId="priceAdd">
-                                    <Form.Label column sm="5">Cena: </Form.Label>
+                                    <Form.Label column sm="5">Emission: </Form.Label>
                                     <Col sm="3">
                                         <Form.Control type="number" onChange={(e)=>this.handleEmission(e)}/>
                                     </Col>
-                                    <Col>
+                                    {/* <Col>
                                         <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
-                                    </Col>
+                                    </Col> */}
                                 </Form.Group>
                                 <Form.Group as={Row} controlId="priceAdd">
-                                    <Form.Label column sm="5">Cena: </Form.Label>
+                                    <Form.Label column sm="5">HeatConducton: </Form.Label>
                                     <Col sm="3">
                                         <Form.Control type="number" onChange={(e)=>this.handleHeatConducton(e)}/>
                                     </Col>
-                                    <Col>
+                                    {/* <Col>
                                         <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
-                                    </Col>
+                                    </Col> */}
                                 </Form.Group>
                                 <Form.Group as={Row} controlId="priceAdd">
-                                    <Form.Label column sm="5">Cena: </Form.Label>
+                                    <Form.Label column sm="5">HeatDecline: </Form.Label>
                                     <Col sm="3">
                                         <Form.Control type="number" onChange={(e)=>this.handleHeatDecline(e)}/>
                                     </Col>
-                                    <Col>
+                                    {/* <Col>
                                         <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
-                                    </Col>
+                                    </Col> */}
                                 </Form.Group>
 
                         </Form>

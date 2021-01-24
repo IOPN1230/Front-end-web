@@ -86,9 +86,9 @@ class ObjectEdit extends Component {
                                 <Col sm="2">
                                     <Form.Control type="heatsign" defaultValue={this.props.heatConducton} onChange={(e) => this.heatConductonHandler(e)} />
                                 </Col>
-                                <Col>
+                                {/* <Col>
                                     <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>??</Form.Text>
-                                </Col>
+                                </Col> */}
                             </Form.Group>
 
                             <Form.Group as={Row} controlId="formPrice">
@@ -110,9 +110,9 @@ class ObjectEdit extends Component {
                                 <Col sm="2">
                                     <Form.Control type="influenceRadius" defaultValue={this.props.heatDecline} onChange={(e) => this.heatDeclineHandler(e)} />
                                 </Col>
-                                <Col>
+                                {/* <Col>
                                     <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>m</Form.Text>
-                                </Col>
+                                </Col> */}
                             </Form.Group>
 
                             <Form.Group as={Row} controlId="formInfluenceRadius">
@@ -122,9 +122,9 @@ class ObjectEdit extends Component {
                                 <Col sm="2">
                                     <Form.Control type="influenceRadius" defaultValue={this.props.emission} onChange={(e) => this.emissionHandler(e)} />
                                 </Col>
-                                <Col>
+                                {/* <Col>
                                     <Form.Text className='mt-2 mr-0' style={{ fontSize: 16 }}>m</Form.Text>
-                                </Col>
+                                </Col> */}
                             </Form.Group>
                         </Form>
                     </Container>
