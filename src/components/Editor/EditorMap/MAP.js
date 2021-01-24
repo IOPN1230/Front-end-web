@@ -12,7 +12,6 @@ import ToolBar from "../ToolBar/ToolBar";
 import { useCookies } from 'react-cookie';
 import { Button } from "react-bootstrap";
 import axios from 'axios';
-import PrintControlDefault from 'react-leaflet-easyprint';
 
 const map_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution = '&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -40,11 +39,11 @@ function MAP(props) {
             geoJSON.features[index].properties.heatSign = marker.heatSign;
             geoJSON.features[index].properties.influenceRadius = marker.influenceRadius;
         })
-
+        
         //todo
         //let jsondata = JSON.stringify(geoJSON, null, '\t')
-        axios({ method: 'get', url: 'http://localhost:8080/api/heat-map/', responseType: 'arraybuffer' }).then(res => {
-            var blob = new Blob([res.data], { type: "image/png" });
+        axios({method: 'get', url: 'http://localhost:8080/api/heat-map/', responseType: 'arraybuffer'}).then(res => {
+            var blob = new Blob([res.data], {type: "image/png"});
             var link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
             link.download = `MapaCiepła-${props.currentMapEdit.name}.png`;
@@ -52,7 +51,8 @@ function MAP(props) {
         })
     }
 
-    var calcCenter = function () {
+    var calcCenter = function ()
+    {
         let arr = props.currentMapEdit.data[0].latlngs;
         var x = arr.map(xy => xy.lat);
         var y = arr.map(xy => xy.lng);
@@ -108,8 +108,6 @@ function MAP(props) {
     const bounds = L.latLngBounds(b)
     const maxBound = bounds.pad(0.2);
 
-    // print map
-    const PrintControl = withLeaflet(PrintControlDefault);
 
     return (
         <div className="EditorMap">
