@@ -24,18 +24,24 @@ class ObjectItem extends Component {
             objects: [
                 {name: '',
                 author: '',
-                heatSign: 0,
+                // heatSign: 0,
                 price : 0,
-                influenceRadius : 0,
+                // influenceRadius : 0,
                 image: '',
-                date: '',}
+                date: '',
+                emission: '',
+                heatConducton: '',
+                heatDecline: ''}
             ],
             keys:[],
             name:'',
             image:'',
-            influenceRadius:0,
+            // influenceRadius:0,
             price: 0,
-            heatSign: 0,
+            // heatSign: 0,
+            emission: 0,
+            heatConducton: 0,
+            heatDecline: 0
         }
         ActionsObject.getList().then((list)=>{
             let objects = []
@@ -69,24 +75,31 @@ class ObjectItem extends Component {
     modalShow = () => this.setState({show: true});
     handleName = (e) => this.setState({name:e.target.value});
     handleImage =(e) => this.setState({image:e.target.value});
-    handleRadius =(e)=> this.setState({influenceRadius:e.target.value});
+    // handleRadius =(e)=> this.setState({influenceRadius:e.target.value});
     handlePrice = (e) => this.setState({price:e.target.value});
-    handleSign = (e) => this.setState({heatSign:e.target.value});
-    
+    // handleSign = (e) => this.setState({heatSign:e.target.value});
+    handleHeatDecline = (e) => this.setState({heatDecline:e.target.value});
+    handleEmission = (e) => this.setState({emission:e.target.value});
+    handleHeatConducton = (e) => this.setState({heatConducton:e.target.value});
+
+
     onSubmit(){
         var today = new Date();
         var date = ('0'+(today.getDate())).slice(-2)+'.'+('0'+(today.getMonth()+1)).slice(-2)+'.'+today.getFullYear();
-        if (this.state.heatSign === 0 || this.state.price === 0 
-            || this.state.influenceRadius === 0 || this.state.name ==='' || this.state.image ===''){
+        if (this.state.emission === 0 || this.state.price === 0 
+            || this.state.heatConducton === 0 || this.state.heatDecline === 0 || this.state.name ==='' || this.state.image ===''){
                 alert ('Musisz podać wszystkie dane!')
-            }else if( this.state.heatSign < 0 || this.state.price < 0 || this.state.influenceRadius < 0){
+            }else if( this.state.heatConducton < 0 || this.state.price < 0 || this.state.heatDecline < 0){
                 alert ('Nie podawaj liczb ujemnych!')
             }
             else{
                 ActionsObject.createAndSetValue({"author":User.getUserData().uid,"date": date,
-                 "heatSign": this.state.heatSign, 
+                //  "heatSign": this.state.heatSign, 
                  "image": this.state.image, 
-                 "influenceRadius": this.state.heatSign, 
+                 "emission": this.state.emission,
+                 "heatConducton": this.state.heatConducton,
+                 "heatDecline": this.state.heatDecline,
+                //  "influenceRadius": this.state.heatSign, 
                  "name":this.state.name, 
                  "price": this.state.price})
                 alert('Pomyślnie dodano do bazy!')
@@ -111,9 +124,12 @@ class ObjectItem extends Component {
                             <Card.Subtitle className='mb-2' style={{fontSize: 10}}>Autor: {data.author}</Card.Subtitle> 
                         </Col>
                         <Col xs='4' >
-                            <Card.Subtitle className='mb-2'>Współczynnik ciepła: {data.heatSign} W / m <sup>2</sup> &times; K </Card.Subtitle>
+                            {/* <Card.Subtitle className='mb-2'>Współczynnik ciepła: {data.heatSign} W / m <sup>2</sup> &times; K </Card.Subtitle> */}
                             <Card.Subtitle className='mb-2'>Cena: {data.price} PLN</Card.Subtitle>
-                            <Card.Subtitle className='mb-2'>Promień oddziaływania: {data.influenceRadius} m</Card.Subtitle>
+                            {/* <Card.Subtitle className='mb-2'>Promień oddziaływania: {data.influenceRadius} m</Card.Subtitle> */}
+                            <Card.Subtitle className='mb-2'>Emission: {data.emission}  </Card.Subtitle>
+                            <Card.Subtitle className='mb-2'>Heat Conducton: {data.heatConducton} </Card.Subtitle>
+                            <Card.Subtitle className='mb-2'>Heat Decline: {data.heatDecline} </Card.Subtitle>
                         </Col>
                         <Col >
                           <ButtonToolbar >
@@ -136,9 +152,12 @@ class ObjectItem extends Component {
             <div>
                  <div >{newdata}</div>
                  <ObjectEdit  show = {this.state.showModal} onHide = {showModalClose} 
-                             heatSign={modalData.heatSign} 
+                            //  heatSign={modalData.heatSign} 
                              price={modalData.price} 
-                             influenceRadius={modalData.influenceRadius} 
+                            //  influenceRadius={modalData.influenceRadius} 
+                            emission ={modalData.emission} 
+                            heatConducton={modalData.heatConducton}
+                            heatDecline={modalData.heatDecline}
                              image={modalData.image} 
                              name={modalData.name} 
                              author={modalData.author} 
@@ -165,7 +184,7 @@ class ObjectItem extends Component {
                                         <Form.Control type="url" onChange={(e)=>this.handleImage(e)}/>
                                     </Col>
                                 </Form.Group>
-                                <Form.Group  as={Row} controlId="signAdd">
+                                {/* <Form.Group  as={Row} controlId="signAdd">
                                     <Form.Label column sm="5">Współczynnik ciepła: </Form.Label>
                                     <Col sm="3">
                                          <Form.Control type="number" onChange={(e)=>this.handleSign(e)}/>
@@ -173,7 +192,7 @@ class ObjectItem extends Component {
                                     <Col>
                                         <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}> W / m<sup>2</sup> &times; K</Form.Text>
                                     </Col>
-                                </Form.Group>
+                                </Form.Group> */}
                                 <Form.Group as={Row} controlId="priceAdd">
                                     <Form.Label column sm="5">Cena: </Form.Label>
                                     <Col sm="3">
@@ -183,7 +202,7 @@ class ObjectItem extends Component {
                                         <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>PLN</Form.Text>
                                     </Col>
                                 </Form.Group>
-                                <Form.Group as={Row} controlId="priceAdd">
+                                {/* <Form.Group as={Row} controlId="priceAdd">
                                      <Form.Label column sm="5"> Promień oddziaływania: </Form.Label>
                                      <Col sm="3">
                                          <Form.Control type="number" onChange={(e)=>this.handleRadius(e)}/>
@@ -191,6 +210,33 @@ class ObjectItem extends Component {
                                      <Col>
                                         <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>m</Form.Text>
                                      </Col>
+                                </Form.Group> */}
+                                <Form.Group as={Row} controlId="priceAdd">
+                                    <Form.Label column sm="5">Cena: </Form.Label>
+                                    <Col sm="3">
+                                        <Form.Control type="number" onChange={(e)=>this.handleEmission(e)}/>
+                                    </Col>
+                                    <Col>
+                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} controlId="priceAdd">
+                                    <Form.Label column sm="5">Cena: </Form.Label>
+                                    <Col sm="3">
+                                        <Form.Control type="number" onChange={(e)=>this.handleHeatConducton(e)}/>
+                                    </Col>
+                                    <Col>
+                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} controlId="priceAdd">
+                                    <Form.Label column sm="5">Cena: </Form.Label>
+                                    <Col sm="3">
+                                        <Form.Control type="number" onChange={(e)=>this.handleHeatDecline(e)}/>
+                                    </Col>
+                                    <Col>
+                                        <Form.Text className='mt-2 mr-0' style={{fontSize: 16}}>??</Form.Text>
+                                    </Col>
                                 </Form.Group>
 
                         </Form>

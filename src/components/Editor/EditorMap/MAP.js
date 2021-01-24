@@ -36,12 +36,13 @@ function MAP(props) {
         let geoJSON = layerGroup.leafletElement.toGeoJSON(6);
 
         markerList.forEach((marker, index) => {
-            geoJSON.features[index].properties.heatSign = marker.heatSign;
-            geoJSON.features[index].properties.influenceRadius = marker.influenceRadius;
+            geoJSON.features[index].properties.emission = marker.emission;
+            geoJSON.features[index].properties.heatConducton = marker.heatConducton;
+            geoJSON.features[index].properties.heatDecline = marker.heatDecline;
         })
         
         let jsondata = JSON.stringify(geoJSON, null, '\t')
-        console.log(jsondata);
+        console.log("jsondata", jsondata);
         axios({method: 'post', url: 'http://iopn1230backend.westeurope.azurecontainer.io:8080/api/heat-map/', responseType: 'arraybuffer'}, jsondata).then(res => {
             var blob = new Blob([res.data], {type: "image/png"});
             var link = document.createElement('a');
