@@ -13,10 +13,7 @@ function HabitantTool() {
     return (
         <div>
             <Back />
-            <Move />
-            <Delete />
             <Export />
-            <Estimate />
             <Cost total={cookies.currentCost}/>
         </div>
     )

@@ -40,9 +40,9 @@ function MAP(props) {
             geoJSON.features[index].properties.influenceRadius = marker.influenceRadius;
         })
         
-        //todo
-        //let jsondata = JSON.stringify(geoJSON, null, '\t')
-        axios({method: 'get', url: 'http://localhost:8080/api/heat-map/', responseType: 'arraybuffer'}).then(res => {
+        let jsondata = JSON.stringify(geoJSON, null, '\t')
+        console.log(jsondata);
+        axios({method: 'post', url: 'http://iopn1230backend.westeurope.azurecontainer.io:8080/api/heat-map/', responseType: 'arraybuffer'}, jsondata).then(res => {
             var blob = new Blob([res.data], {type: "image/png"});
             var link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
@@ -84,6 +84,10 @@ function MAP(props) {
         }
     }
 
+    useEffect(() => {
+        setCookie('currentCost', calculateTotal())
+    }, [markerList])
+
     const calculateTotal = () => {
         let total = 0;
         markerList.forEach(m => total += parseFloat(m.price))
@@ -111,7 +115,6 @@ function MAP(props) {
 
     return (
         <div className="EditorMap">
-            <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7" />
 
             <Button onClick={() => getGeoJSON()}>Oblicz mapę ciepła</Button>
             <Map
@@ -138,7 +141,7 @@ function MAP(props) {
 
                     {markerList.map((m, ind) =>
                         <Marker key={ind} position={m.position} icon={new Icon({ iconUrl: m.image, iconSize: [50, 50] })}>
-                            <Popup>
+                            <Popup onClose={() => setMarkerList(markerList.filter(marker => marker !== m))}>
                                 {m.name}
                             </Popup>
                         </Marker>
