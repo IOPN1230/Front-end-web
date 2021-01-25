@@ -17,7 +17,6 @@ export default function LoginScreen(props) {
                 if(user == null) {
                     return;
                 }
-                console.log(user)
                 setCookie('userType', user.userType);
 
                 let userData = User.getUserData()

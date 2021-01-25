@@ -33,7 +33,6 @@ function Item({ item }) {
         setActive('true')
     }
 
-
     return (
         <div className="Item">
             <img src={item.image} alt={item.name} onClick={() => selectObject()}
