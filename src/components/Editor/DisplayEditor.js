@@ -7,13 +7,8 @@ import ItemBar from './ItemBar/ItemBar';
 import './DisplayEditor.css'
 
 function DisplayEditor(props) {
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies();
   const [userType, setUserType] = useState('')
-
-  useEffect(() => {
-    setCookie('selectedObject', {name: ''})
-    setCookie('currentCost', 0)
-  }, [])
 
   return (
     <div className="DisplayEditor">
