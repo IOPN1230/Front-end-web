@@ -57,7 +57,7 @@ function MAP(props) {
 
         let jsondata = JSON.stringify(geoJSON, null, '\t')
 
-        axios({method: 'post', url: 'http://localhost:8080/api/heat-map/', responseType: 'arraybuffer', data: jsondata, headers: {'Content-Type': 'application/json'}}).then(res => {
+        axios({method: 'post', url: 'https://iopn1230backend.westeurope.azurecontainer.io:8080/api/heat-map/', responseType: 'arraybuffer', data: jsondata, headers: {'Content-Type': 'application/json'}}).then(res => {
             var blob = new Blob([res.data], {type: "image/png"});
             var link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
