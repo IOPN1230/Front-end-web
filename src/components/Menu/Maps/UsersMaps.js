@@ -7,10 +7,16 @@ import {Map, TileLayer} from 'react-leaflet';
 import {ActionsMap} from '../../../service/Actions';
 import Rating from '@material-ui/lab/Rating'
 import { keys } from '@material-ui/core/styles/createBreakpoints';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 import './../styles/menu.css'
 
 class usersMaps extends Component {
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
     constructor(props ){
         super(props);
         this.state = {
@@ -53,6 +59,13 @@ class usersMaps extends Component {
         window.location.reload()
     }
 
+    selectMap(currentMap) {
+        console.log(currentMap)
+        const { cookies } = this.props;
+        cookies.set('currentMapEdit', currentMap, { path: '/' });
+        document.location.href = "/Edytor";
+    }
+
    render(){
     const mapStyles = {
         width: '100%',
@@ -87,7 +100,7 @@ class usersMaps extends Component {
                         </Col>
                         <Col>
                           <ButtonToolbar>
-                                <Button variant='primary' href="edytor"> Pokaż </Button>     
+                                <Button variant='primary' onClick={() => this.selectMap(data)}> Pokaż </Button>     
                          </ButtonToolbar>
                         </Col>                
                     </Row>   
@@ -105,4 +118,4 @@ class usersMaps extends Component {
    
 }
 
-export default usersMaps
+export default withCookies(usersMaps)
